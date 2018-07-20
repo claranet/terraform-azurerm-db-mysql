@@ -1,6 +1,6 @@
 # Prerequisites
-module.infra.resource_group_name: "git::ssh://git@bitbucket.org/morea/terraform.feature.azurerm.basic.infra.git?ref=v1.0.0" 
-
+* module.infra.resource_group_name: "git::ssh://git@bitbucket.org/morea/terraform.feature.azurerm.basic.infra.git?ref=v1.0.0" 
+* admin_cidrs variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> admin_cidrs
 
 ## Optional
 if **'webapp_enabled'** = true
@@ -8,7 +8,8 @@ if **'webapp_enabled'** = true
 module.webapps.outbound_ip_addresses: "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.webapps.git"
 
 To use webapp you have to :
-1. add in module declaration:
+
+* Add in module declaration:
 ```
 module "mysql" {
   source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.mysql.git"
@@ -19,8 +20,9 @@ module "mysql" {
 -->  mysql_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
 -->  webapp_enabled         = "true"
   ...
+
 ```
-2. enable remote states (remote-states.tf)
+* Enable remote states (remote-states.tf)
 ```
 data "terraform_remote_state" "azure" {
   backend = "s3"
@@ -31,14 +33,24 @@ data "terraform_remote_state" "azure" {
     region = "eu-west-1"
   }
 }
-```
-3. apply terraform to initialize azure.webapp_lenght_ip in remote state
 
-4. change following variable
+```
+
+* Add a new output in your stack
+```
+output "webapp_lenght_ip" {
+  value = "${length(module.webapps.app_service_outbound_ip_addresses)}"
+}
+```
+
+* Apply terraform to initialize azure.webapp_lenght_ip in remote state
+
+* Change following variable
 ```
 --> length_webapp_ip         = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
 ```
-5. apply terraform 
+
+* Apply terraform 
 
 # Module declaration
 
@@ -63,56 +75,51 @@ module "mysql" {
   mysql_charset          = "${var.mysql_charset}"
   mysql_collation        = "${var.mysql_collation}"
   default_tags           = {environment = "${var.environment}", stack= "${var.stack}"}
-  authorized_cidr_list     = "${var.admin_cidrs}"
-  resource_group_name      = "${module.infra.resource_group_name}"
-  number_rules             = "${length(var.admin_cidrs)}"
-  custom_tags              = "${var.custom_tags}"
+  authorized_cidr_list   = "${var.admin_cidrs}"
+  resource_group_name    = "${module.infra.resource_group_name}"
+  number_rules           = "${length(var.admin_cidrs)}"
+  custom_tags            = "${var.custom_tags}"
 If we need to link to a webapp
-  webapp_enabled           = "false"
-  mysql_ip                 = "${module.webapps.app_service_outbound_ip_addresses}"
-  length_webapp_ip         = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
+  webapp_enabled         = "false"
+  mysql_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
+  length_webapp_ip       = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
 }
 ```
-
-# Inputs
+## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| admin_cidrs |  | list | `<list>` | no |
-| authorized_cidr_list |  | list | - | yes |
-| azure_region |  | string | - | yes |
-| azure_region_short |  | string | - | yes |
-| client_name |  | string | - | yes |
-| custom_tags |  | map | - | yes |
-| db_name |  | string | - | yes |
-| default_tags |  | map | `<map>` | no |
-| environment |  | string | - | yes |
-| length_webapp_ip |  | string | `0` | no |
-| mysql_charset |  | string | `utf8` | no |
-| mysql_collation |  | string | `utf8_general_ci` | no |
-| mysql_ip |  | list | - | yes |
-| mysql_options |  | list | `<list>` | no |
-| mysql_server_sku |  | map | `<map>` | no |
-| mysql_server_storage_profile |  | map | `<map>` | no |
-| mysql_ssl_enforcement |  | string | `Disabled` | no |
-| mysql_version |  | string | `5.7` | no |
-| number_rules |  | string | - | yes |
-| resource_group_name |  | string | - | yes |
-| server_sku |  | map | - | yes |
-| server_storage_profile |  | map | - | yes |
-| sql_pass |  | string | - | yes |
-| sql_user |  | string | - | yes |
-| stack |  | string | - | yes |
-| webapp_enabled |  | string | `false` | no |
+| admin_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs | string | - | yes |
+| azure_region | Azure region in which the web app will be hosted | string | - | yes |
+| azure_region_short | Azure region trigram | string | - | yes |
+| client_name | Name of client | string | - | yes |
+| custom_tags | Map of custom tags | map | - | yes |
+| db_name | Name of database | string | - | yes |
+| default_tags | Map of tags, default not defined yet | map | `<map>` | no |
+| environment | Name of application's environnement | string | - | yes |
+| length_webapp_ip | Value used for access rules, the readme scenario must be followed | string | `0` | no |
+| mysql_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8` | no |
+| mysql_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8_general_ci` | no |
+| mysql_ip | Value from webapp module | list | `<list>` | no |
+| mysql_options | List of configuration options : https://www.terraform.io/docs/providers/azurerm/r/mysql_configuration.html | list | `<list>` | no |
+| mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Disabled` | no |
+| mysql_version | Valid values are 5.6 and 5.7 | string | `5.7` | no |
+| resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
+| server_sku | Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#sku | map | `<map>` | no |
+| server_storage_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map | `<map>` | no |
+| sql_pass | Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | - | yes |
+| sql_user | Sql username | string | - | yes |
+| stack | Name of application stack | string | - | yes |
+| webapp_enabled | Enable/Disable webapp integration, used by access rules | string | `false` | no |
 
-# Outputs
+## Outputs
 
 | Name | Description |
 |------|-------------|
-| azure_mysql_db_name |  |
-| azure_mysql_firewall_rule_id |  |
-| azure_mysql_fqdn |  |
-| azure_mysql_id |  |
-| azure_mysql_login |  |
-| azure_mysql_password |  |
+| azure_mysql_db_name | Database Name |
+| azure_mysql_firewall_rule_id | List of mysql created rules |
+| azure_mysql_fqdn | Mysql generated fqdn |
+| azure_mysql_id | Mysql instance id |
+| azure_mysql_login | Username |
+| azure_mysql_password | Password |
 
