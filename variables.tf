@@ -1,3 +1,8 @@
+variable "mysql_name" {
+  type        = "string"
+  description = "Name identifier"
+}
+
 variable "mysql_ip" {
   type        = "list"
   default     = []
@@ -48,6 +53,7 @@ variable "sql_pass" {
 }
 
 variable "admin_cidrs" {
+  type        = "list"
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs"
 }
 
@@ -94,7 +100,7 @@ variable "db_name" {
 variable "mysql_options" {
   type        = "list"
   default     = []
-  description = "List of configuration options : https://www.terraform.io/docs/providers/azurerm/r/mysql_configuration.html"
+  description = "List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
 }
 
 variable "mysql_version" {
