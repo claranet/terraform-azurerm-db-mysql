@@ -64,32 +64,38 @@ module "mysql" {
   azure_region_short     = "${module.az-region.location-short}"
   environment            = "${var.environment}"
   stack                  = "${var.stack}"
+  mysql_name             = "${var.mysql_name}"
+  authorized_cidr_list   = "${var.admin_cidrs}"
+
   server_sku             = "${var.mysql_server_sku}"
   server_storage_profile = "${var.mysql_server_storage_profile}"
+  resource_group_name    = "${module.infra.resource_group_name}"
+
   sql_user               = "${var.sql_user}"
   sql_pass               = "${var.sql_pass}"
   db_name                = "${var.db_name}"
-  mysql_options          = "${var.mysql_options}"
+
+  mysql_options          = "${var.mysql_options}" #Example [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
   mysql_version          = "${var.mysql_version}"
   mysql_ssl_enforcement  = "${var.mysql_ssl_enforcement}"
   mysql_charset          = "${var.mysql_charset}"
   mysql_collation        = "${var.mysql_collation}"
+
   default_tags           = {environment = "${var.environment}", stack= "${var.stack}"}
-  authorized_cidr_list   = "${var.admin_cidrs}"
-  resource_group_name    = "${module.infra.resource_group_name}"
-  number_rules           = "${length(var.admin_cidrs)}"
   custom_tags            = "${var.custom_tags}"
+
 If we need to link to a webapp
   webapp_enabled         = "false"
   mysql_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
   length_webapp_ip       = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
 }
 ```
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| admin_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs | string | - | yes |
+| admin_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs | list | - | yes |
 | azure_region | Azure region in which the web app will be hosted | string | - | yes |
 | azure_region_short | Azure region trigram | string | - | yes |
 | client_name | Name of client | string | - | yes |
@@ -101,7 +107,8 @@ If we need to link to a webapp
 | mysql_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8` | no |
 | mysql_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8_general_ci` | no |
 | mysql_ip | Value from webapp module | list | `<list>` | no |
-| mysql_options | List of configuration options : https://www.terraform.io/docs/providers/azurerm/r/mysql_configuration.html | list | `<list>` | no |
+| mysql_name | Name identifier | string | - | yes |
+| mysql_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list | `<list>` | no |
 | mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Disabled` | no |
 | mysql_version | Valid values are 5.6 and 5.7 | string | `5.7` | no |
 | resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
