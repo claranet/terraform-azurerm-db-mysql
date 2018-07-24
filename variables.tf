@@ -3,7 +3,7 @@ variable "mysql_name" {
   description = "Name identifier"
 }
 
-variable "mysql_ip" {
+variable "mysql_webapp_ip" {
   type        = "list"
   default     = []
   description = "Value from webapp module"

@@ -17,7 +17,7 @@ module "mysql" {
      client_name            = "${var.client_name}"
      azure_region           = "${module.az-region.location}"
      number_rules           = "${length(var.admin_cidrs)}"
--->  mysql_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
+-->  mysql_webapp_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
 -->  webapp_enabled         = "true"
   ...
 
@@ -86,7 +86,7 @@ module "mysql" {
 
 If we need to link to a webapp
   webapp_enabled         = "false"
-  mysql_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
+  mysql_webapp_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
   length_webapp_ip       = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
 }
 ```
@@ -106,7 +106,7 @@ If we need to link to a webapp
 | length_webapp_ip | Value used for access rules, the readme scenario must be followed | string | `0` | no |
 | mysql_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8` | no |
 | mysql_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8_general_ci` | no |
-| mysql_ip | Value from webapp module | list | `<list>` | no |
+| mysql_webapp_ip | Value from webapp module | list | `<list>` | no |
 | mysql_name | Name identifier | string | - | yes |
 | mysql_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list | `<list>` | no |
 | mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Disabled` | no |
