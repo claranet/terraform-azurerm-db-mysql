@@ -24,7 +24,7 @@ module "mysql" {
   sql_pass               = "${var.sql_pass}"
   db_name                = "${var.db_name}"
 
-  mysql_name             = "cphu"
+  mysql_name             = "${var.sql_name}"
   mysql_options          = [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
   mysql_version          = "${var.mysql_version}"
   mysql_ssl_enforcement  = "${var.mysql_ssl_enforcement}"
