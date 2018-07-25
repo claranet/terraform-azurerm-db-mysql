@@ -2,55 +2,6 @@
 * module.infra.resource_group_name: "git::ssh://git@bitbucket.org/morea/terraform.feature.azurerm.basic.infra.git?ref=v1.0.0" 
 * admin_cidrs variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> admin_cidrs
 
-## Optional
-if **'webapp_enabled'** = true
-
-module.webapps.outbound_ip_addresses: "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.webapps.git"
-
-To use webapp you have to :
-
-* Add in module declaration:
-```
-module "mysql" {
-  source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.mysql.git"
-  ...
-     client_name            = "${var.client_name}"
-     azure_region           = "${module.az-region.location}"
-     number_rules           = "${length(var.admin_cidrs)}"
--->  mysql_webapp_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
--->  webapp_enabled         = "true"
-  ...
-
-```
-* Enable remote states (remote-states.tf)
-```
-data "terraform_remote_state" "azure" {
-  backend = "s3"
-
-  config {
-    bucket = "s3-terraform-states-eu-west-1-612688033368"
-    key    = "claranet/claranet/AzureCloud/fr-central/cphu/terraform.state"
-    region = "eu-west-1"
-  }
-}
-
-```
-
-* Add a new output in your stack
-```
-output "webapp_lenght_ip" {
-  value = "${length(module.webapps.app_service_outbound_ip_addresses)}"
-}
-```
-
-* Apply terraform to initialize azure.webapp_lenght_ip in remote state
-
-* Change following variable
-```
---> length_webapp_ip         = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
-```
-
-* Apply terraform 
 
 # Module declaration
 
@@ -64,31 +15,35 @@ module "mysql" {
   azure_region_short     = "${module.az-region.location-short}"
   environment            = "${var.environment}"
   stack                  = "${var.stack}"
-  mysql_name             = "${var.mysql_name}"
-  authorized_cidr_list   = "${var.admin_cidrs}"
 
   server_sku             = "${var.mysql_server_sku}"
   server_storage_profile = "${var.mysql_server_storage_profile}"
-  resource_group_name    = "${module.infra.resource_group_name}"
+  resource_group_name  = "${module.infra.resource_group_name}"
 
   sql_user               = "${var.sql_user}"
   sql_pass               = "${var.sql_pass}"
   db_name                = "${var.db_name}"
 
-  mysql_options          = "${var.mysql_options}" #Example [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
+  mysql_name             = "cphu"
+  mysql_options          = [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
   mysql_version          = "${var.mysql_version}"
   mysql_ssl_enforcement  = "${var.mysql_ssl_enforcement}"
   mysql_charset          = "${var.mysql_charset}"
   mysql_collation        = "${var.mysql_collation}"
 
-  default_tags           = {environment = "${var.environment}", stack= "${var.stack}"}
-  custom_tags            = "${var.custom_tags}"
+  default_tags = {
+    environment = "${var.environment}"
+    stack = "${var.stack}"
+  }
+  custom_tags    = "${var.custom_tags}"
 
-If we need to link to a webapp
-  webapp_enabled         = "false"
-  mysql_webapp_ip               = "${module.webapps.app_service_outbound_ip_addresses}"
-  length_webapp_ip       = "${data.terraform_remote_state.azure.webapp_lenght_ip}"
+# On first apply use the following, cause at this time module.webapps.app_service_outbound_ip_addresses output is not known
+  admin_cidrs           = "${var.admin_cidrs}"
+
+# Please apply again terraform by replacing admin_cidrs variable with following:
+#  admin_cidrs           = "${concat(var.admin_cidrs, formatlist("%s/32", module.webapps.app_service_outbound_ip_addresses))}"
 }
+
 ```
 
 ## Inputs

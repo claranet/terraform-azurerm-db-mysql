@@ -1,24 +1,28 @@
+#variable "authorized_cidr_list" {
+#  type        = "list"
+#  description = "List of authorized cidr"
+#}
 variable "mysql_name" {
   type        = "string"
   description = "Name identifier"
 }
 
-variable "mysql_webapp_ip" {
-  type        = "list"
-  default     = []
-  description = "Value from webapp module"
-}
+#variable "mysql_webapp_ip" {
+#  type        = "list"
+#  default     = []
+#  description = "Value from webapp module"
+#}
 
-variable "webapp_enabled" {
-  default     = "false"
-  description = "Enable/Disable webapp integration, used by access rules"
-}
+#variable "webapp_enabled" {
+#  default     = "false"
+#  description = "Enable/Disable webapp integration, used by access rules"
+#}
 
-variable "length_webapp_ip" {
-  type        = "string"
-  default     = 0
-  description = "Value used for access rules, the readme scenario must be followed"
-}
+#variable "length_webapp_ip" {
+#  type        = "string"
+#  default     = 0
+#  description = "Value used for access rules, the readme scenario must be followed"
+#}
 
 variable "azure_region" {
   description = "Azure region in which the web app will be hosted"

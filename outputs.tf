@@ -23,9 +23,3 @@ output "azure_mysql_login" {
   sensitive   = true
   description = "Username"
 }
-
-output "azure_mysql_password" {
-  value       = "${azurerm_mysql_server.mysql_server.administrator_login_password}"
-  sensitive   = true
-  description = "Password"
-}
