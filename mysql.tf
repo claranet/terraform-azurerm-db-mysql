@@ -8,7 +8,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   administrator_login_password = "${var.sql_pass}"
   version                      = "${var.mysql_version}"
   ssl_enforcement              = "${var.mysql_ssl_enforcement}"
-  tags                         = "${merge(var.default_tags, var.custom_tags)}"
+  tags                         = "${merge(map("env", var.environment, "stack", var.stack), var.custom_tags)}"
 }
 
 resource "azurerm_mysql_database" "mysql_db" {
