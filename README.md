@@ -23,7 +23,6 @@ module "mysql" {
   ...
      client_name            = "${var.client_name}"
      azure_region           = "${module.az-region.location}"
-     number_rules           = "${length(var.admin_cidrs)}"
 -->  mysql_webapp_ip        = "${module.webapps.app_service_outbound_ip_addresses}"
 -->  webapp_enabled         = "true"
   ...
