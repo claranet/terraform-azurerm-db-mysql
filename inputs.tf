@@ -109,17 +109,19 @@ variable "mysql_ssl_enforcement" {
 }
 
 variable "db_charset" {
-  default     = { 
-    "test" =  "utf8"
+  default = {
+    "test" = "utf8"
   }
+
   type        = "map"
   description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }
 
 variable "db_collation" {
-  default     = { 
-   "test" = "utf8"
+  default = {
+    "test" = "utf8"
   }
+
   type        = "map"
   description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }
