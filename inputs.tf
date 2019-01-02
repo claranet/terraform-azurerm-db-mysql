@@ -90,6 +90,7 @@ variable "server_storage_profile" {
 variable "db_names" {
   description = "Name of database"
   type        = "list"
+  default     = ["test"] 
 }
 
 variable "mysql_options" {
