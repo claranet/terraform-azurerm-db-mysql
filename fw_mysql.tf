@@ -8,7 +8,7 @@ resource "azurerm_mysql_firewall_rule" "mysql_rule" {
 }
 
 resource "azurerm_mysql_firewall_rule" "webapp_rule" {
-  count = "${var.webapp_enabled == "true" ?  var.length_webapp_ip : 0 }"
+  count = "${var.webapp_enabled == "true" ?  var.length_webapp_ip : 0}"
 
   # count must be done on module.webapps.app_service_outbound_ip_addresses, but until terraform 0.12, it is not possible (count on computed value)
   name                = "mysql-rule-webapp-${replace(element(var.mysql_webapp_ip, count.index),".","-")}"

@@ -87,8 +87,9 @@ variable "server_storage_profile" {
   description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile"
 }
 
-variable "db_name" {
+variable "db_names" {
   description = "Name of database"
+  type        = "list"
 }
 
 variable "mysql_options" {
@@ -107,12 +108,18 @@ variable "mysql_ssl_enforcement" {
   description = "Possible values are Enforced and Disabled"
 }
 
-variable "mysql_charset" {
-  default     = "utf8"
+variable "db_charset" {
+  default     = { 
+    "test" =  "utf8"
+  }
+  type        = "map"
   description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }
 
-variable "mysql_collation" {
-  default     = "utf8_general_ci"
+variable "db_collation" {
+  default     = { 
+   "test" = "utf8"
+  }
+  type        = "map"
   description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }

@@ -1,4 +1,4 @@
-output "azure_mysql_firewall_rule_id" {
+output "azure_mysql_firewall_rule_ids" {
   value       = "${azurerm_mysql_firewall_rule.mysql_rule.*.id}"
   description = "List of mysql created rules"
 }
@@ -13,9 +13,9 @@ output "azure_mysql_fqdn" {
   description = "Mysql generated fqdn"
 }
 
-output "azure_mysql_db_name" {
-  value       = "${azurerm_mysql_database.mysql_db.name}"
-  description = "Database Name"
+output "azure_mysql_db_names" {
+  value       = "${azurerm_mysql_database.mysql_db.*.name}"
+  description = "List of Database Name"
 }
 
 output "azure_mysql_login" {

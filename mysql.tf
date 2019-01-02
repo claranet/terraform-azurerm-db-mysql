@@ -12,11 +12,12 @@ resource "azurerm_mysql_server" "mysql_server" {
 }
 
 resource "azurerm_mysql_database" "mysql_db" {
-  charset             = "${var.mysql_charset}"
-  collation           = "${var.mysql_collation}"
-  name                = "${var.db_name}"
+  charset             = "${lookup(var.db_charset, (element(var.db_names, count.index)))}"
+  collation           = "${lookup(var.db_collation, (element(var.db_names, count.index)))}"
+  name                = "${element(var.db_names, count.index)}"
   resource_group_name = "${var.resource_group_name}"
   server_name         = "${azurerm_mysql_server.mysql_server.name}"
+  count               = "${length(var.db_names)}"
 }
 
 resource "azurerm_mysql_configuration" "config" {
