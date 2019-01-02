@@ -90,7 +90,7 @@ variable "server_storage_profile" {
 variable "db_names" {
   description = "Name of database"
   type        = "list"
-  default     = ["test"] 
+  default     = ["test"]
 }
 
 variable "mysql_options" {
@@ -120,7 +120,7 @@ variable "db_charset" {
 
 variable "db_collation" {
   default = {
-    "test" = "utf8"
+    "test" = "utf8_general_ci"
   }
 
   type        = "map"

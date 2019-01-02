@@ -87,9 +87,9 @@ If we need to link to a webapp
 | environment | Name of application's environnement | string | - | yes |
 | resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
 | stack | Name of application stack | string | - | yes |
-| db_names | Name of database | string | - | yes |
-| db_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8` | no |
-| db_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | string | `utf8_general_ci` | no |
+| db_names | Name of database | list | `<list>` | no |
+| db_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map | `<map>` | no |
+| db_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map | `<map>` | no |
 | mysql_name | Name identifier | string | - | yes |
 | mysql_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list | `<list>` | no |
 | mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Disabled` | no |
