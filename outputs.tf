@@ -15,7 +15,7 @@ output "azure_mysql_fqdn" {
 
 output "azure_mysql_db_names" {
   value       = "${azurerm_mysql_database.mysql_db.*.name}"
-  description = "List of Database Name"
+  description = "List of database names"
 }
 
 output "azure_mysql_login" {

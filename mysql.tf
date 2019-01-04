@@ -1,6 +1,6 @@
 resource "azurerm_mysql_server" "mysql_server" {
-  name                         = "mysql-${var.environment}-${var.azure_region_short}-${var.client_name}-${var.stack}-${var.mysql_name}"
-  location                     = "${var.azure_region}"
+  name                         = "mysql-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.mysql_name}"
+  location                     = "${var.location}"
   resource_group_name          = "${var.resource_group_name}"
   sku                          = ["${var.server_sku}"]
   storage_profile              = ["${var.server_storage_profile}"]
