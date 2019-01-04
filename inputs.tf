@@ -10,7 +10,7 @@ variable "mysql_webapp_ip" {
 }
 
 variable "webapp_enabled" {
-  default     = "false"
+  default     = false
   description = "Enable/Disable webapp integration, used by access rules"
 }
 
@@ -20,11 +20,11 @@ variable "length_webapp_ip" {
   description = "Value used for access rules, the readme scenario must be followed"
 }
 
-variable "azure_region" {
+variable "location" {
   description = "Azure region in which the web app will be hosted"
 }
 
-variable "azure_region_short" {
+variable "location_short" {
   description = "Azure region trigram"
 }
 
@@ -52,9 +52,9 @@ variable "sql_pass" {
   description = "Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
 }
 
-variable "admin_cidrs" {
+variable "allowed_ip_addressess" {
   type        = "list"
-  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs"
+  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
 }
 
 variable "custom_tags" {
@@ -88,7 +88,7 @@ variable "server_storage_profile" {
 }
 
 variable "db_names" {
-  description = "Name of database"
+  description = "List of databases names"
   type        = "list"
   default     = ["test"]
 }

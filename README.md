@@ -1,6 +1,6 @@
 # Prerequisites
 * module.infra.resource_group_name: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=v0.1.0`
-* admin_cidrs variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> admin_cidrs
+* allowed_ip_addressess variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> allowed_ip_addressess
 * module.az-region.location|location-short: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=v1.0.0`
 
 ## Optional
@@ -18,14 +18,14 @@ To use webapps you have to :
 
 * Add in module declaration:
 
-```
+```shell
 module "mysql" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git"
   ...
      client_name            = "${var.client_name}"
-     azure_region           = "${module.az-region.location}"
+     location               = "${module.az-region.location}"
 -->  mysql_webapp_ip        = "${module.webapps.app_service_outbound_ip_addresses}"
--->  webapp_enabled         = "true"
+-->  webapp_enabled         = true
   ...
 ```
 * Apply terraform and identify the number of ip your webapp have (throught webapp properties or using a dedicated output in your stack) 
@@ -41,20 +41,35 @@ module "mysql" {
 
 # Module declaration
 
-Terraform module declaration example:
+shell module declaration example:
 
-```
+```shell
+module "az-region" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+
+  azure_region = "${var.azure_region}"
+}
+
+module "rg" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+
+  azure_region = "${module.az-region.location}"
+  client_name  = "${var.client_name}"
+  environment  = "${var.environment}"
+  stack        = "${var.stack}"
+}
+
 module "mysql" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git"
   client_name            = "${var.client_name}"
-  azure_region           = "${module.az-region.location}"
-  azure_region_short     = "${module.az-region.location-short}"
+  location               = "${module.az-region.location}"
+  location_short         = "${module.az-region.location-short}"
   environment            = "${var.environment}"
   stack                  = "${var.stack}"
 
   server_sku             = "${var.mysql_server_sku}"
   server_storage_profile = "${var.mysql_server_storage_profile}"
-  resource_group_name  = "${module.infra.resource_group_name}"
+  resource_group_name    = "${module.rg.resource_group_name}"
 
   sql_user               = "${var.sql_user}"
   sql_pass               = "${var.sql_pass}"
@@ -67,10 +82,10 @@ module "mysql" {
   db_charset             = "${var.db_charset}"
   db_collation           = "${var.db_collation}"
 
-  custom_tags    = "${var.custom_tags}"
+  custom_tags            = "${var.custom_tags}"
 
-If we need to link to a webapp
-  webapp_enabled         = "true"
+# If we need to link to a webapp
+  webapp_enabled         = true
   mysql_webapp_ip        = "${module.webapps.app_service_outbound_ip_addresses}"
   length_webapp_ip       = "XXX" ===> Value must be given manually after the first apply, see Readme
 }
@@ -81,8 +96,8 @@ If we need to link to a webapp
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| azure_region | Azure region in which the web app will be hosted | string | - | yes |
-| azure_region_short | Azure region trigram | string | - | yes |
+| location | Azure region in which the web app will be hosted | string | - | yes |
+| location_short | Azure region trigram | string | - | yes |
 | client_name | Name of client | string | - | yes |
 | environment | Name of application's environnement | string | - | yes |
 | resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
@@ -99,7 +114,7 @@ If we need to link to a webapp
 | server_storage_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map | `<map>` | no |
 | sql_pass | Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | - | yes |
 | sql_user | Sql username | string | - | yes |
-| admin_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs | list | - | yes |
+| allowed_ip_addressess | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> allowed_ip_addressess | list | - | yes |
 | custom_tags | Map of custom tags | map | - | yes |
 | length_webapp_ip | Value used for access rules, the readme scenario must be followed | string | `0` | no |
 | webapp_enabled | Enable/Disable webapp integration, used by access rules | string | `false` | no |
