@@ -1,5 +1,5 @@
 resource "azurerm_mysql_server" "mysql_server" {
-  name                         = "mysql-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.mysql_name}"
+  name                         = "${coalesce(var.server_name, "mysql-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.mysql_name}")}"
   location                     = "${var.location}"
   resource_group_name          = "${var.resource_group_name}"
   sku                          = ["${var.server_sku}"]
@@ -8,7 +8,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   administrator_login_password = "${var.sql_pass}"
   version                      = "${var.mysql_version}"
   ssl_enforcement              = "${var.mysql_ssl_enforcement}"
-  tags                         = "${merge(map("env", var.environment, "stack", var.stack), var.custom_tags)}"
+  tags                         = "${merge(map("env", var.environment, "stack", var.stack), var.extra_tags)}"
 }
 
 resource "azurerm_mysql_database" "mysql_db" {

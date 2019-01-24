@@ -9,4 +9,4 @@ mysql_name="mysql-test"
 sql_pass="test"
 sql_user="test"
 db_names=["test"]
-custom_tags= {"test" = "ci"}
+extra_tags= {"test" = "ci"}

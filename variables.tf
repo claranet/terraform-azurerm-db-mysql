@@ -1,23 +1,13 @@
 variable "mysql_name" {
   type        = "string"
   description = "Name identifier"
+  default     = "test"
 }
 
-variable "mysql_webapp_ip" {
-  type        = "list"
-  default     = []
-  description = "Value from webapp module"
-}
-
-variable "webapp_enabled" {
-  default     = false
-  description = "Enable/Disable webapp integration, used by access rules"
-}
-
-variable "length_webapp_ip" {
+variable "server_name" {
   type        = "string"
-  default     = 0
-  description = "Value used for access rules, the readme scenario must be followed"
+  description = "Custom Name identifier"
+  default     = ""
 }
 
 variable "location" {
@@ -57,7 +47,7 @@ variable "allowed_ip_addressess" {
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
 }
 
-variable "custom_tags" {
+variable "extra_tags" {
   type        = "map"
   description = "Map of custom tags"
 }
@@ -110,19 +100,19 @@ variable "mysql_ssl_enforcement" {
 }
 
 variable "db_charset" {
+  type        = "map"
+  description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+
   default = {
     "test" = "utf8"
   }
-
-  type        = "map"
-  description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }
 
 variable "db_collation" {
+  type        = "map"
+  description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+
   default = {
     "test" = "utf8_general_ci"
   }
-
-  type        = "map"
-  description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 }
