@@ -24,7 +24,7 @@ module "rg" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git?ref=vX.X.X."
 
   mysql_name or server_name = "${var.mysql_name or var.server_name}" 
 
