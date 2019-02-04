@@ -1,9 +1,13 @@
- Prerequisites
+# Azure Managed Mysql Service 
+
+Create and manage mysql service (server, databases, firewall rules) 
+
+## Prerequisites
 * module.infra.resource_group_name: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=v0.1.0`
 * allowed_ip_addressess variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> allowed_ip_addressess
 * module.az-region.location|location-short: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=v1.0.0`
 
-# Module declaration
+## Module declaration
 
 shell module declaration example:
 
