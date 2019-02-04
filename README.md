@@ -46,7 +46,7 @@ module "mysql" {
   db_names                  = "${var.db_names}"
 
   mysql_name                = "${var.sql_name}"
-  mysql_options             = "${var.mysql_options}" ==> Example:  [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
+  mysql_options             = "${var.mysql_options}"  # Example:  [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
   mysql_version             = "${var.mysql_version}"
   mysql_ssl_enforcement     = "${var.mysql_ssl_enforcement}"
   db_charset                = "${var.db_charset}"
