@@ -1,12 +1,6 @@
-variable "mysql_name" {
+variable "custom_server_name" {
   type        = "string"
-  description = "Name identifier"
-  default     = "test"
-}
-
-variable "server_name" {
-  type        = "string"
-  description = "Custom Name identifier"
+  description = "Custom Server Name identifier"
   default     = ""
 }
 

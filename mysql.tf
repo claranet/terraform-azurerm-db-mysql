@@ -1,5 +1,5 @@
 resource "azurerm_mysql_server" "mysql_server" {
-  name                         = "${coalesce(var.server_name, "mysql-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.mysql_name}")}"
+  name                         = "${coalesce(var.custom_server_name, "${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-mysql")}"
   location                     = "${var.location}"
   resource_group_name          = "${var.resource_group_name}"
   sku                          = ["${var.server_sku}"]

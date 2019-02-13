@@ -29,17 +29,12 @@ module "rg" {
 
 module "mysql" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git?ref=vX.X.X."
-
-  mysql_name or server_name = "${var.mysql_name or var.server_name}" 
-
-#mysql_name is used to have a personalized name
-#server_name will be used as follow: `mysql-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.server_name}`
-
   client_name               = "${var.client_name}"
   location                  = "${module.az-region.location}"
   location_short            = "${module.az-region.location-short}"
   environment               = "${var.environment}"
   stack                     = "${var.stack}"
+  custom_server_name        = "${var.custom_server_name}"
 
   server_sku                = "${var.mysql_server_sku}"
   server_storage_profile    = "${var.mysql_server_storage_profile}"
@@ -49,7 +44,6 @@ module "mysql" {
   sql_pass                  = "${var.sql_pass}"
   db_names                  = "${var.db_names}"
 
-  mysql_name                = "${var.sql_name}"
   mysql_options             = "${var.mysql_options}"  # Example:  [{name = "interactive_timeout", value = "600" },{name = "wait_timeout", value = "260"}]
   mysql_version             = "${var.mysql_version}"
   mysql_ssl_enforcement     = "${var.mysql_ssl_enforcement}"
@@ -57,7 +51,7 @@ module "mysql" {
   db_collation              = "${var.db_collation}"
 
   extra_tags                = "${var.extra_tags}"
-
+}
 ```
 
 ## Inputs
@@ -66,6 +60,7 @@ module "mysql" {
 |------|-------------|:----:|:-----:|:-----:|
 | allowed_ip_addressess | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | list | - | yes |
 | client_name | Name of client | string | - | yes |
+| custom_server_name | Custom Server Name identifier | string | `` | no |
 | db_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map | `<map>` | no |
 | db_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map | `<map>` | no |
 | db_names | List of databases names | list | `<list>` | no |
@@ -73,12 +68,10 @@ module "mysql" {
 | extra_tags | Map of custom tags | map | - | yes |
 | location | Azure region in which the web app will be hosted | string | - | yes |
 | location_short | Azure region trigram | string | - | yes |
-| mysql_name | Name identifier | string | `test` | no |
 | mysql_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list | `<list>` | no |
 | mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Disabled` | no |
 | mysql_version | Valid values are 5.6 and 5.7 | string | `5.7` | no |
 | resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
-| server_name | Custom Name identifier | string | - | yes |
 | server_sku | Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#sku | map | `<map>` | no |
 | server_storage_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map | `<map>` | no |
 | sql_pass | Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | - | yes |

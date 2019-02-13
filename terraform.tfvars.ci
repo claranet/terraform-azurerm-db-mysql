@@ -5,7 +5,6 @@ stack="ci"
 client_name="test"
 resource_group_name="rg-test"
 allowed_ip_addressess=["192.168.0.0/24", "192.168.1.0/24"]
-mysql_name="mysql-test"
 sql_pass="test"
 sql_user="test"
 db_names=["test"]
