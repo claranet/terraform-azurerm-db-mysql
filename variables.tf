@@ -36,7 +36,7 @@ variable "sql_pass" {
   description = "Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
 }
 
-variable "allowed_ip_addressess" {
+variable "allowed_ip_addresses" {
   type        = "list"
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
 }
