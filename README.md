@@ -4,7 +4,7 @@ Create and manage mysql service (server, databases, firewall rules)
 
 ## Prerequisites
 * module.infra.resource_group_name: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=v0.1.0`
-* allowed_ip_addressess variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> allowed_ip_addressess
+* allowed_ip_addresses variable from global remote states "cloudpublic/cloudpublic/global/vars/terraform.state" --> allowed_ip_addresses
 * module.az-region.location|location-short: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=v1.0.0`
 
 ## Module declaration
@@ -58,7 +58,7 @@ module "mysql" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| allowed_ip_addressess | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | list | - | yes |
+| allowed_ip_addresses | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | list | - | yes |
 | client_name | Name of client | string | - | yes |
 | custom_server_name | Custom Server Name identifier | string | `` | no |
 | db_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map | `<map>` | no |
