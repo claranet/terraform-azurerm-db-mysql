@@ -1,5 +1,5 @@
 variable "custom_server_name" {
-  type        = "string"
+  type        = string
   description = "Custom Server Name identifier"
   default     = ""
 }
@@ -28,26 +28,26 @@ variable "resource_group_name" {
   description = "Name of the application ressource group, herited from infra module"
 }
 
-variable "sql_user" {
-  description = "Sql username"
+variable "administrator_login" {
+  description = "MySQL administrator login"
 }
 
-variable "sql_pass" {
-  description = "Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+variable "administrator_password" {
+  description = "MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
 }
 
 variable "allowed_ip_addresses" {
-  type        = "list"
+  type        = list(string)
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
 }
 
 variable "extra_tags" {
-  type        = "map"
+  type        = map(string)
   description = "Map of custom tags"
 }
 
 variable "server_sku" {
-  type = "map"
+  type = map(string)
 
   default = {
     name     = "B_Gen5_1"
@@ -60,7 +60,7 @@ variable "server_sku" {
 }
 
 variable "server_storage_profile" {
-  type = "map"
+  type = map(string)
 
   default = {
     storage_mb            = 5120
@@ -71,14 +71,13 @@ variable "server_storage_profile" {
   description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile"
 }
 
-variable "db_names" {
+variable "databases_names" {
   description = "List of databases names"
-  type        = "list"
-  default     = ["test"]
+  type        = list(string)
 }
 
 variable "mysql_options" {
-  type        = "list"
+  type        = list(map(string))
   default     = []
   description = "List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
 }
@@ -93,8 +92,8 @@ variable "mysql_ssl_enforcement" {
   description = "Possible values are Enforced and Disabled"
 }
 
-variable "db_charset" {
-  type        = "map"
+variable "databases_charset" {
+  type        = map(string)
   description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 
   default = {
@@ -102,11 +101,12 @@ variable "db_charset" {
   }
 }
 
-variable "db_collation" {
-  type        = "map"
+variable "databases_collation" {
+  type        = map(string)
   description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
 
   default = {
     "test" = "utf8_general_ci"
   }
 }
+
