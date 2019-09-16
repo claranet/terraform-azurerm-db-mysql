@@ -42,7 +42,8 @@ module "rg" {
 }
 
 module "mysql" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/db-mysql.git?ref=vX.X.X."
+  source  = "claranet/db-mysql/azurerm"
+  version = "x.x.x"
   
   client_name          = var.client_name
   environment          = var.environment
