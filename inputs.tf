@@ -1,39 +1,47 @@
+variable "client_name" {
+  description = "Name of client"
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of application's environnement"
+  type        = string
+}
+
+variable "stack" {
+  description = "Name of application stack"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Name of the application ressource group, herited from infra module"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure location for Key Vault."
+  type        = string
+}
+
+variable "location_short" {
+  description = "Short string for Azure location."
+  type        = string
+}
+
 variable "custom_server_name" {
   type        = string
   description = "Custom Server Name identifier"
   default     = ""
 }
 
-variable "location" {
-  description = "Azure region in which the web app will be hosted"
-}
-
-variable "location_short" {
-  description = "Azure region trigram"
-}
-
-variable "environment" {
-  description = "Name of application's environnement"
-}
-
-variable "stack" {
-  description = "Name of application stack"
-}
-
-variable "client_name" {
-  description = "Name of client"
-}
-
-variable "resource_group_name" {
-  description = "Name of the application ressource group, herited from infra module"
-}
-
 variable "administrator_login" {
   description = "MySQL administrator login"
+  type        = string
 }
 
 variable "administrator_password" {
   description = "MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+  type        = string
 }
 
 variable "allowed_ip_addresses" {
@@ -44,15 +52,16 @@ variable "allowed_ip_addresses" {
 variable "extra_tags" {
   type        = map(string)
   description = "Map of custom tags"
+  default     = {}
 }
 
 variable "server_sku" {
   type = map(string)
 
   default = {
-    name     = "B_Gen5_1"
-    capacity = 1
-    tier     = "Basic"
+    name     = "GP_Gen5_8"
+    capacity = 4
+    tier     = "GeneralPurpose"
     family   = "Gen5"
   }
 
@@ -65,15 +74,10 @@ variable "server_storage_profile" {
   default = {
     storage_mb            = 5120
     backup_retention_days = 10
-    geo_redundant_backup  = "Disabled"
+    geo_redundant_backup  = "Enabled"
   }
 
   description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile"
-}
-
-variable "databases_names" {
-  description = "List of databases names"
-  type        = list(string)
 }
 
 variable "mysql_options" {
@@ -88,26 +92,23 @@ variable "mysql_version" {
 }
 
 variable "mysql_ssl_enforcement" {
-  default     = "Disabled"
+  default     = "Enabled"
   description = "Possible values are Enforced and Disabled"
+}
+
+variable "databases_names" {
+  description = "List of databases names"
+  type        = list(string)
 }
 
 variable "databases_charset" {
   type        = map(string)
   description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-
-  default = {
-    "test" = "utf8"
-  }
 }
 
 variable "databases_collation" {
   type        = map(string)
   description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-
-  default = {
-    "test" = "utf8_general_ci"
-  }
 }
 
 variable "enable_logs_to_storage" {
