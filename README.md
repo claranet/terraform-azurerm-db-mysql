@@ -1,6 +1,6 @@
 # Azure Managed Mysql Service 
 
-Create and manage mysql service (server, databases, firewall rules) 
+This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html) with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html) along with logging activated and [firewall rules](https://www.terraform.io/docs/providers/azurerm/r/mysql_firewall_rule.html).
 
 ## Requirements
 
@@ -106,3 +106,10 @@ module "mysql" {
 | mysql_firewall_rule_ids | List of MySQL created rules |
 | mysql_fqdn | FQDN of the MySQL server |
 | mysql_server_id | MySQL server ID |
+
+## Related documentation
+
+Terraform Azure MySQL Server documentation: [https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html]
+Terraform Azure MySQL Database documentation: [https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html]
+
+Microsoft Azure documentation: [https://docs.microsoft.com/fr-fr/azure/mysql/overview]
