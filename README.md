@@ -1,5 +1,7 @@
 # Azure Managed Mysql Service 
 
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](http://img.shields.io/badge/license-Apache%20V2-blue.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-mysql/azurerm/)
+
 This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html) with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html) along with logging activated and [firewall rules](https://www.terraform.io/docs/providers/azurerm/r/mysql_firewall_rule.html).
 
 ## Requirements
@@ -14,7 +16,10 @@ This Terraform module creates an [Azure MySQL server](https://www.terraform.io/d
 | < 2.x.x        | 0.11.x            |
 
 ## Usage
-You can use this module by including it this way:
+
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
+which set some terraform variables in the environment needed by this module.
+More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
 module "az-region" {
