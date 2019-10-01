@@ -156,3 +156,8 @@ variable "logs_log_analytics_workspace_id" {
   default     = ""
 }
 
+variable "create_databases_users" {
+  description = "True to create a user named <db>_user per database with generated password."
+  type        = string
+  default     = "true"
+}
