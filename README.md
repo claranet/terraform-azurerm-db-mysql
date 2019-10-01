@@ -114,7 +114,8 @@ module "mysql" {
 
 ## Related documentation
 
-Terraform Azure MySQL Server documentation: [https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html]
+Terraform Azure MySQL Server documentation: [https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html] 
+
 Terraform Azure MySQL Database documentation: [https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html]
 
 Microsoft Azure documentation: [https://docs.microsoft.com/fr-fr/azure/mysql/overview]
