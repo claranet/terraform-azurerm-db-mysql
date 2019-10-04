@@ -82,35 +82,40 @@ module "mysql" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| administrator_login | MySQL administrator login | string | - | yes |
-| administrator_password | MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | - | yes |
-| allowed_ip_addresses | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | list(string) | - | yes |
-| client_name | Name of client | string | - | yes |
-| custom_server_name | Custom Server Name identifier | string | `` | no |
-| databases_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `<map>` | no |
-| databases_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `<map>` | no |
-| databases_names | List of databases names | list(string) | `<list>` | no |
-| environment | Name of application's environnement | string | - | yes |
-| extra_tags | Map of custom tags | map(string) | - | yes |
-| location | Azure region in which the web app will be hosted | string | - | yes |
-| location_short | Azure region trigram | string | - | yes |
-| mysql_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list(string) | `<list>` | no |
-| mysql_ssl_enforcement | Possible values are Enforced and Disabled | string | `Enabled` | no |
-| mysql_version | Valid values are 5.6 and 5.7 | string | `5.7` | no |
-| resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |
-| server_sku | Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#sku | map(string) | `<map>` | no |
-| server_storage_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map(string) | `<map>` | no |
-| stack | Name of application stack | string | - | yes |
+| administrator\_login | MySQL administrator login | string | n/a | yes |
+| administrator\_password | MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | n/a | yes |
+| allowed\_ip\_addresses | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state | list(string) | n/a | yes |
+| client\_name | Name of client | string | n/a | yes |
+| custom\_server\_name | Custom Server Name identifier | string | `""` | no |
+| databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | n/a | yes |
+| databases\_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | n/a | yes |
+| databases\_names | List of databases names | list(string) | n/a | yes |
+| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | string | `"false"` | no |
+| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | string | `"false"` | no |
+| environment | Name of application's environnement | string | n/a | yes |
+| extra\_tags | Map of custom tags | map(string) | `{}` | no |
+| location | Azure location for Key Vault. | string | n/a | yes |
+| location\_short | Short string for Azure location. | string | n/a | yes |
+| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | string | `""` | no |
+| logs\_storage\_account\_id | Storage Account id for logs | string | `""` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | string | `"30"` | no |
+| mysql\_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list(map(string)) | `[]` | no |
+| mysql\_ssl\_enforcement | Possible values are Enforced and Disabled | string | `"Enabled"` | no |
+| mysql\_version | Valid values are 5.6 and 5.7 | string | `"5.7"` | no |
+| resource\_group\_name | Name of the application ressource group, herited from infra module | string | n/a | yes |
+| server\_sku | Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql\_server.html#sku | map(string) | `{ "capacity": 4, "family": "Gen5", "name": "GP_Gen5_8", "tier": "GeneralPurpose" }` | no |
+| server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql\_server.html#storage\_profile | map(string) | `{ "backup_retention_days": 10, "geo_redundant_backup": "Enabled", "storage_mb": 5120 }` | no |
+| stack | Name of application stack | string | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| mysql_administrator_login | Administrator login for MySQL server |
-| mysql_databases_names | List of databases names |
-| mysql_firewall_rule_ids | List of MySQL created rules |
-| mysql_fqdn | FQDN of the MySQL server |
-| mysql_server_id | MySQL server ID |
+| mysql\_administrator\_login | Administrator login for MySQL server |
+| mysql\_databases\_names | List of databases names |
+| mysql\_firewall\_rule\_ids | List of MySQL created rules |
+| mysql\_fqdn | FQDN of the MySQL server |
+| mysql\_server\_id | MySQL server ID |
 
 ## Related documentation
 
