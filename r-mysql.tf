@@ -1,8 +1,9 @@
 resource "azurerm_mysql_server" "mysql_server" {
   name = coalesce(
     var.custom_server_name,
-    "${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-mysql",
+    local.default_name_server,
   )
+
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -21,7 +22,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_password
   version                      = var.mysql_version
-  ssl_enforcement              = var.mysql_ssl_enforcement
+  ssl_enforcement              = var.ssl_enforcement
   tags = merge(
     {
       "env"   = var.environment
@@ -40,7 +41,7 @@ resource "azurerm_mysql_database" "mysql_db" {
   server_name         = azurerm_mysql_server.mysql_server.name
 }
 
-resource "azurerm_mysql_configuration" "config" {
+resource "azurerm_mysql_configuration" "mysql_config" {
   count               = length(var.mysql_options)
   name                = var.mysql_options[count.index].name
   resource_group_name = var.resource_group_name

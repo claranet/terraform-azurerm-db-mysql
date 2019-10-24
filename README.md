@@ -66,7 +66,7 @@ module "mysql" {
 
   mysql_options         = [{name="interactive_timeout", value="600"}, {name="wait_timeout", value="260"}]
   mysql_version         = "5.7"
-  mysql_ssl_enforcement = "Enabled"
+  ssl_enforcement       = "Enabled"
   databases_charset     = {
     "db1" = "utf8"
   }
@@ -94,28 +94,34 @@ module "mysql" {
 | enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | string | `"false"` | no |
 | environment | Name of application's environnement | string | n/a | yes |
 | extra\_tags | Map of custom tags | map(string) | `{}` | no |
+| firewall\_rules | List of firewall rules to create | list(map(string)) | `[]` | no |
 | location | Azure location for Key Vault. | string | n/a | yes |
 | location\_short | Short string for Azure location. | string | n/a | yes |
 | logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | string | `""` | no |
 | logs\_storage\_account\_id | Storage Account id for logs | string | `""` | no |
 | logs\_storage\_retention | Retention in days for logs on Storage Account | string | `"30"` | no |
 | mysql\_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list(map(string)) | `[]` | no |
-| mysql\_ssl\_enforcement | Possible values are Enforced and Disabled | string | `"Enabled"` | no |
 | mysql\_version | Valid values are 5.6 and 5.7 | string | `"5.7"` | no |
+| name\_prefix | Optional prefix for PostgreSQL server name | string | `""` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | string | n/a | yes |
 | server\_sku | Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql\_server.html#sku | map(string) | `{ "capacity": 4, "family": "Gen5", "name": "GP_Gen5_8", "tier": "GeneralPurpose" }` | no |
 | server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql\_server.html#storage\_profile | map(string) | `{ "backup_retention_days": 10, "geo_redundant_backup": "Enabled", "storage_mb": 5120 }` | no |
+| ssl\_enforcement | Possible values are Enforced and Disabled | string | `"Enabled"` | no |
 | stack | Name of application stack | string | n/a | yes |
+| vnet\_rules | List of vnet rules to create | list(map(string)) | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | mysql\_administrator\_login | Administrator login for MySQL server |
+| mysql\_configuration\_id | The list of all configurations resource ids |
+| mysql\_database\_ids | The list of all database resource ids |
 | mysql\_databases\_names | List of databases names |
 | mysql\_firewall\_rule\_ids | List of MySQL created rules |
 | mysql\_fqdn | FQDN of the MySQL server |
 | mysql\_server\_id | MySQL server ID |
+| mysql\_vnet\_rule\_ids | The list of all vnet rule resource ids |
 
 ## Related documentation
 
