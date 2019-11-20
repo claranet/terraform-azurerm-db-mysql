@@ -1,4 +1,4 @@
 # v2.0.0 - Unreleased
 
 Added
-  * TER-306: First release
+  * AZ-44 + TER-306: First release

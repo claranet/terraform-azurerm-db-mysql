@@ -8,11 +8,12 @@ resource "azurerm_mysql_server" "mysql_server" {
   resource_group_name = var.resource_group_name
 
   sku {
-    capacity = lookup(var.server_sku, "capacity", null)
-    family   = lookup(var.server_sku, "family", null)
-    name     = lookup(var.server_sku, "name", null)
-    tier     = lookup(var.server_sku, "tier", null)
+    name     = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Gen5", var.capacity])
+    capacity = var.capacity
+    tier     = var.tier
+    family   = "Gen5"
   }
+
   storage_profile {
     backup_retention_days = lookup(var.server_storage_profile, "backup_retention_days", null)
     geo_redundant_backup  = lookup(var.server_storage_profile, "geo_redundant_backup", null)
@@ -22,7 +23,8 @@ resource "azurerm_mysql_server" "mysql_server" {
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_password
   version                      = var.mysql_version
-  ssl_enforcement              = var.ssl_enforcement
+  ssl_enforcement              = var.force_ssl ? "Enabled" : "Disabled"
+
   tags = merge(
     {
       "env"   = var.environment
@@ -34,8 +36,8 @@ resource "azurerm_mysql_server" "mysql_server" {
 
 resource "azurerm_mysql_database" "mysql_db" {
   count               = length(var.databases_names)
-  charset             = var.databases_charset[element(var.databases_names, count.index)]
-  collation           = var.databases_collation[element(var.databases_names, count.index)]
+  charset             = lookup(var.databases_charset, element(var.databases_names, count.index), "utf8")
+  collation           = lookup(var.databases_collation, element(var.databases_names, count.index), "utf8_general_ci")
   name                = element(var.databases_names, count.index)
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_server.mysql_server.name

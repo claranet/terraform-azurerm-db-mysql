@@ -50,9 +50,9 @@ variable "administrator_password" {
   type        = string
 }
 
-variable "allowed_ip_addresses" {
+variable "allowed_cidrs" {
   type        = list(string)
-  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state"
+  description = "List of authorized cidrs"
 }
 
 variable "extra_tags" {
@@ -61,17 +61,16 @@ variable "extra_tags" {
   default     = {}
 }
 
-variable "server_sku" {
-  type = map(string)
+variable "tier" {
+  type        = string
+  description = "Tier for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier Possible values are: GeneralPurpose, Basic, MemoryOptimized"
+  default     = "GeneralPurpose"
+}
 
-  default = {
-    name     = "GP_Gen5_8"
-    capacity = 4
-    tier     = "GeneralPurpose"
-    family   = "Gen5"
-  }
-
-  description = "Server class : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#sku"
+variable "capacity" {
+  type        = number
+  description = "Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity"
+  default     = 4
 }
 
 variable "server_storage_profile" {
@@ -93,24 +92,20 @@ variable "mysql_options" {
 }
 
 variable "mysql_version" {
+  type        = string
   default     = "5.7"
   description = "Valid values are 5.6 and 5.7"
 }
 
-variable "ssl_enforcement" {
-  default     = "Enabled"
-  description = "Possible values are Enforced and Disabled"
+variable "force_ssl" {
+  type        = bool
+  default     = true
+  description = "Force usage of SSL"
 }
 
 variable "vnet_rules" {
   type        = list(map(string))
   description = "List of vnet rules to create"
-  default     = []
-}
-
-variable "firewall_rules" {
-  type        = list(map(string))
-  description = "List of firewall rules to create"
   default     = []
 }
 
@@ -127,18 +122,19 @@ variable "databases_charset" {
 variable "databases_collation" {
   type        = map(string)
   description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+  default     = {}
 }
 
 variable "enable_logs_to_storage" {
   description = "Boolean flag to specify whether the logs should be sent to the Storage Account"
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
 }
 
 variable "enable_logs_to_log_analytics" {
   description = "Boolean flag to specify whether the logs should be sent to Log Analytics"
-  type        = string
-  default     = "false"
+  type        = bool
+  default     = false
 }
 
 variable "logs_storage_retention" {
