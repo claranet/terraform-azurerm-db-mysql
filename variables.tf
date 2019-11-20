@@ -117,6 +117,7 @@ variable "databases_names" {
 variable "databases_charset" {
   type        = map(string)
   description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+  default     = {}
 }
 
 variable "databases_collation" {
