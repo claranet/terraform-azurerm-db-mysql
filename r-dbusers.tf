@@ -14,7 +14,7 @@ resource "mysql_user" "users" {
   plaintext_password = random_string.db_passwords[count.index].result
   host               = "%"
 
-  depends_on = [azurerm_mysql_database.mysql_db]
+  depends_on = [azurerm_mysql_database.mysql_db, azurerm_mysql_firewall_rule.firewall_rules]
 }
 
 resource "mysql_grant" "roles" {
