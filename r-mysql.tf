@@ -25,13 +25,8 @@ resource "azurerm_mysql_server" "mysql_server" {
   version                      = var.mysql_version
   ssl_enforcement              = var.force_ssl ? "Enabled" : "Disabled"
 
-  tags = merge(
-    {
-      "env"   = var.environment
-      "stack" = var.stack
-    },
-    var.extra_tags,
-  )
+
+  tags = merge(local.default_tags, var.extra_tags)
 }
 
 resource "azurerm_mysql_database" "mysql_db" {
@@ -44,7 +39,8 @@ resource "azurerm_mysql_database" "mysql_db" {
 }
 
 resource "azurerm_mysql_configuration" "mysql_config" {
-  count               = length(var.mysql_options)
+  count = length(var.mysql_options)
+
   name                = var.mysql_options[count.index].name
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_server.mysql_server.name

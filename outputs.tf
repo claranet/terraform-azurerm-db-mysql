@@ -1,5 +1,5 @@
 output "mysql_administrator_login" {
-  value       = "${azurerm_mysql_server.mysql_server.administrator_login}@${azurerm_mysql_server.mysql_server.name}"
+  value       = local.administrator_login
   description = "Administrator login for MySQL server"
 }
 
@@ -31,6 +31,17 @@ output "mysql_server_id" {
 output "mysql_vnet_rule_ids" {
   value       = azurerm_mysql_virtual_network_rule.vnet_rules.*.ids
   description = "The list of all vnet rule resource ids"
+}
+output "mysql_databases_users" {
+  description = "List of usernames of created users corresponding to input databases names."
+  value       = local.db_users_login
+  sensitive   = true
+}
+
+output "mysql_databases_users_passwords" {
+  description = "List of passwords of created users corresponding to input databases names."
+  value       = random_string.db_passwords.*.result
+  sensitive   = true
 }
 
 output "mysql_configuration_id" {

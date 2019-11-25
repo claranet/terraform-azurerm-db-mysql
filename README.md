@@ -2,11 +2,14 @@
 
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-mysql/azurerm/)
 
-This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html) with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html) along with logging activated and [firewall rules](https://www.terraform.io/docs/providers/azurerm/r/mysql_firewall_rule.html).
+This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html) 
+with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html)  and associated admin users along with logging activated and 
+[firewall rules](https://www.terraform.io/docs/providers/azurerm/r/mysql_firewall_rule.html).
 
 ## Requirements
 
 * [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.31
+* [MySQL Terraform provider](https://www.terraform.io/docs/providers/mysql/) >= 1.6
 
 ## Terraform version compatibility
  
@@ -86,6 +89,7 @@ module "mysql" {
 | allowed\_cidrs | List of authorized cidrs | list(string) | n/a | yes |
 | capacity | Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | number | `"4"` | no |
 | client\_name | Name of client | string | n/a | yes |
+| create\_databases\_users | True to create a user named <db>_user per database with generated password. | string | `"true"` | no |
 | custom\_server\_name | Custom Server Name identifier | string | `""` | no |
 | databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | n/a | yes |
 | databases\_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `{}` | no |
@@ -117,6 +121,8 @@ module "mysql" {
 | mysql\_configuration\_id | The list of all configurations resource ids |
 | mysql\_database\_ids | The list of all database resource ids |
 | mysql\_databases\_names | List of databases names |
+| mysql\_databases\_users | List of usernames of created users corresponding to input databases names. |
+| mysql\_databases\_users\_passwords | List of passwords of created users corresponding to input databases names. |
 | mysql\_firewall\_rule\_ids | List of MySQL created rules |
 | mysql\_fqdn | FQDN of the MySQL server |
 | mysql\_server\_id | MySQL server ID |
