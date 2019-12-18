@@ -1,4 +1,4 @@
-# Unreleased
+# v2.1.0 - 2019-12-18
 
 Changed
   * AZ-149: Improve VNet rules use and fix output
