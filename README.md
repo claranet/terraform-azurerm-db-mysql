@@ -80,6 +80,7 @@ module "mysql" {
   extra_tags = var.extra_tags
 }
 ```
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -87,11 +88,12 @@ module "mysql" {
 | administrator\_login | MySQL administrator login | string | n/a | yes |
 | administrator\_password | MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | n/a | yes |
 | allowed\_cidrs | List of authorized cidrs | list(string) | n/a | yes |
+| allowed\_subnets | List of authorized subnet ids | list(string) | `[]` | no |
 | capacity | Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | number | `"4"` | no |
 | client\_name | Name of client | string | n/a | yes |
 | create\_databases\_users | True to create a user named <db>_user per database with generated password. | string | `"true"` | no |
 | custom\_server\_name | Custom Server Name identifier | string | `""` | no |
-| databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | n/a | yes |
+| databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `{}` | no |
 | databases\_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `{}` | no |
 | databases\_names | List of databases names | list(string) | n/a | yes |
 | enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | bool | `"false"` | no |
@@ -111,7 +113,6 @@ module "mysql" {
 | server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map(string) | `{ "backup_retention_days": 10, "geo_redundant_backup": "Enabled", "storage_mb": 5120 }` | no |
 | stack | Name of application stack | string | n/a | yes |
 | tier | Tier for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier Possible values are: GeneralPurpose, Basic, MemoryOptimized | string | `"GeneralPurpose"` | no |
-| vnet\_rules | List of vnet rules to create | list(map(string)) | `[]` | no |
 
 ## Outputs
 
@@ -126,6 +127,7 @@ module "mysql" {
 | mysql\_firewall\_rule\_ids | List of MySQL created rules |
 | mysql\_fqdn | FQDN of the MySQL server |
 | mysql\_server\_id | MySQL server ID |
+| mysql\_server\_name | MySQL server name |
 | mysql\_vnet\_rule\_ids | The list of all vnet rule resource ids |
 
 ## Related documentation

@@ -55,6 +55,12 @@ variable "allowed_cidrs" {
   description = "List of authorized cidrs"
 }
 
+variable "allowed_subnets" {
+  type        = list(string)
+  description = "List of authorized subnet ids"
+  default     = []
+}
+
 variable "extra_tags" {
   type        = map(string)
   description = "Map of custom tags"
@@ -101,12 +107,6 @@ variable "force_ssl" {
   type        = bool
   default     = true
   description = "Force usage of SSL"
-}
-
-variable "vnet_rules" {
-  type        = list(map(string))
-  description = "List of vnet rules to create"
-  default     = []
 }
 
 variable "databases_names" {

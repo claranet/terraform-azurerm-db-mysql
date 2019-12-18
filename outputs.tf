@@ -28,8 +28,13 @@ output "mysql_server_id" {
   description = "MySQL server ID"
 }
 
+output "mysql_server_name" {
+  value       = azurerm_mysql_server.mysql_server.name
+  description = "MySQL server name"
+}
+
 output "mysql_vnet_rule_ids" {
-  value       = azurerm_mysql_virtual_network_rule.vnet_rules.*.ids
+  value       = azurerm_mysql_virtual_network_rule.vnet_rules.*.id
   description = "The list of all vnet rule resource ids"
 }
 output "mysql_databases_users" {

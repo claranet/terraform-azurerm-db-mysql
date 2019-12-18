@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-149: Improve VNet rules use and fix output
+
 # v2.0.0 - 2019-11-25
 
 Breaking
