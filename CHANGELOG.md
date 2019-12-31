@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-166: Use `random_password` instead of `random_string` for passwords generation: **this changes the generated value or need manual state edition**
+
 # v2.1.0 - 2019-12-18
 
 Changed

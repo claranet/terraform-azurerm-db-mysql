@@ -45,7 +45,7 @@ output "mysql_databases_users" {
 
 output "mysql_databases_users_passwords" {
   description = "List of passwords of created users corresponding to input databases names."
-  value       = random_string.db_passwords.*.result
+  value       = random_password.db_passwords.*.result
   sensitive   = true
 }
 
