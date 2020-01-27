@@ -1,4 +1,4 @@
-resource "random_string" "db_passwords" {
+resource "random_password" "db_passwords" {
   count = var.create_databases_users ? length(var.databases_names) : 0
 
   special = "false"
@@ -11,7 +11,7 @@ resource "mysql_user" "users" {
   provider = mysql.create-users
 
   user               = format("%s_user", var.databases_names[count.index])
-  plaintext_password = random_string.db_passwords[count.index].result
+  plaintext_password = random_password.db_passwords[count.index].result
   host               = "%"
 
   depends_on = [azurerm_mysql_database.mysql_db, azurerm_mysql_firewall_rule.firewall_rules]
