@@ -4,17 +4,17 @@ output "mysql_administrator_login" {
 }
 
 output "mysql_databases_names" {
-  value       = azurerm_mysql_database.mysql_db.*.name
+  value       = azurerm_mysql_database.mysql_db[*].name
   description = "List of databases names"
 }
 
 output "mysql_database_ids" {
   description = "The list of all database resource ids"
-  value       = azurerm_mysql_database.mysql_db.*.id
+  value       = azurerm_mysql_database.mysql_db[*].id
 }
 
 output "mysql_firewall_rule_ids" {
-  value       = azurerm_mysql_firewall_rule.firewall_rules.*.id
+  value       = azurerm_mysql_firewall_rule.firewall_rules[*].id
   description = "List of MySQL created rules"
 }
 
@@ -34,7 +34,7 @@ output "mysql_server_name" {
 }
 
 output "mysql_vnet_rule_ids" {
-  value       = azurerm_mysql_virtual_network_rule.vnet_rules.*.id
+  value       = azurerm_mysql_virtual_network_rule.vnet_rules[*].id
   description = "The list of all vnet rule resource ids"
 }
 output "mysql_databases_users" {
@@ -45,11 +45,11 @@ output "mysql_databases_users" {
 
 output "mysql_databases_users_passwords" {
   description = "List of passwords of created users corresponding to input databases names."
-  value       = random_password.db_passwords.*.result
+  value       = random_password.db_passwords[*].result
   sensitive   = true
 }
 
 output "mysql_configuration_id" {
-  value       = azurerm_mysql_configuration.mysql_config.*.id
+  value       = azurerm_mysql_configuration.mysql_config[*].id
   description = "The list of all configurations resource ids"
 }
