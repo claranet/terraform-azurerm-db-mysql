@@ -1,7 +1,7 @@
 resource "random_password" "db_passwords" {
   count = var.create_databases_users ? length(var.databases_names) : 0
 
-  special = "false"
+  special = false
   length  = 32
 }
 
@@ -10,7 +10,7 @@ resource "mysql_user" "users" {
 
   provider = mysql.create-users
 
-  user               = format("%s_user", var.databases_names[count.index])
+  user               = (var.enable_user_suffix ? format("%s_user", var.databases_names[count.index]) : var.databases_names[count.index])
   plaintext_password = random_password.db_passwords[count.index].result
   host               = "%"
 
@@ -22,7 +22,7 @@ resource "mysql_grant" "roles" {
 
   provider = mysql.create-users
 
-  user       = format("%s_user", var.databases_names[count.index])
+  user       = (var.enable_user_suffix ? format("%s_user", var.databases_names[count.index]) : var.databases_names[count.index])
   host       = "%"
   database   = var.databases_names[count.index]
   privileges = ["ALL"]

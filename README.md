@@ -11,7 +11,7 @@ with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_databas
 * [MySQL Terraform provider](https://www.terraform.io/docs/providers/mysql/) >= 1.6
 
 ## Terraform version compatibility
- 
+
 | Module version | Terraform version |
 |----------------|-------------------|
 | >= 2.x.x       | 0.12.x            |
@@ -44,7 +44,7 @@ module "rg" {
 module "mysql" {
   source  = "claranet/db-mysql/azurerm"
   version = "x.x.x"
-  
+
   client_name          = var.client_name
   environment          = var.environment
   location             = module.azure-region.location
@@ -84,35 +84,36 @@ module "mysql" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| administrator\_login | MySQL administrator login | string | n/a | yes |
-| administrator\_password | MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | string | n/a | yes |
-| allowed\_cidrs | List of authorized cidrs | list(string) | n/a | yes |
-| allowed\_subnets | List of authorized subnet ids | list(string) | `[]` | no |
-| capacity | Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | number | `"4"` | no |
-| client\_name | Name of client | string | n/a | yes |
-| create\_databases\_users | True to create a user named <db>_user per database with generated password. | string | `"true"` | no |
-| custom\_server\_name | Custom Server Name identifier | string | `""` | no |
-| databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `{}` | no |
-| databases\_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | map(string) | `{}` | no |
-| databases\_names | List of databases names | list(string) | n/a | yes |
-| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | bool | `"false"` | no |
-| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | bool | `"false"` | no |
-| environment | Name of application's environnement | string | n/a | yes |
-| extra\_tags | Map of custom tags | map(string) | `{}` | no |
-| force\_ssl | Force usage of SSL | bool | `"true"` | no |
-| location | Azure location for Key Vault. | string | n/a | yes |
-| location\_short | Short string for Azure location. | string | n/a | yes |
-| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | string | `""` | no |
-| logs\_storage\_account\_id | Storage Account id for logs | string | `""` | no |
-| logs\_storage\_retention | Retention in days for logs on Storage Account | string | `"30"` | no |
-| mysql\_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | list(map(string)) | `[]` | no |
-| mysql\_version | Valid values are 5.6 and 5.7 | string | `"5.7"` | no |
-| name\_prefix | Optional prefix for PostgreSQL server name | string | `""` | no |
-| resource\_group\_name | Name of the application ressource group, herited from infra module | string | n/a | yes |
-| server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | map(string) | `{ "backup_retention_days": 10, "geo_redundant_backup": "Enabled", "storage_mb": 5120 }` | no |
-| stack | Name of application stack | string | n/a | yes |
-| tier | Tier for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier Possible values are: GeneralPurpose, Basic, MemoryOptimized | string | `"GeneralPurpose"` | no |
+|------|-------------|------|---------|:-----:|
+| administrator\_login | MySQL administrator login | `string` | n/a | yes |
+| administrator\_password | MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
+| allowed\_cidrs | List of authorized cidrs | `list(string)` | n/a | yes |
+| allowed\_subnets | List of authorized subnet ids | `list(string)` | `[]` | no |
+| capacity | Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | `number` | `4` | no |
+| client\_name | Name of client | `string` | n/a | yes |
+| create\_databases\_users | True to create a user named <db>(_user) per database with generated password. | `bool` | `true` | no |
+| custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
+| databases\_charset | Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
+| databases\_collation | Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
+| databases\_names | List of databases names | `list(string)` | n/a | yes |
+| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | `bool` | `false` | no |
+| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | `bool` | `false` | no |
+| environment | Name of application's environnement | `string` | n/a | yes |
+| extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
+| force\_ssl | Force usage of SSL | `bool` | `true` | no |
+| location | Azure location for Key Vault. | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
+| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | `string` | `""` | no |
+| logs\_storage\_account\_id | Storage Account id for logs | `string` | `""` | no |
+| logs\_storage\_retention | Retention in days for logs on Storage Account | `string` | `"30"` | no |
+| mysql\_options | List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | `list(map(string))` | `[]` | no |
+| mysql\_version | Valid values are 5.6 and 5.7 | `string` | `"5.7"` | no |
+| name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
+| resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
+| server\_storage\_profile | Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | `map(string)` | <pre>{<br>  "backup_retention_days": 10,<br>  "geo_redundant_backup": "Enabled",<br>  "storage_mb": 5120<br>}<br></pre> | no |
+| stack | Name of application stack | `string` | n/a | yes |
+| tier | Tier for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier Possible values are: GeneralPurpose, Basic, MemoryOptimized | `string` | `"GeneralPurpose"` | no |
+| enable\_user\_suffix | True to append a _user suffix to database users | `bool` | `true` | no |
 
 ## Outputs
 
