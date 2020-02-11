@@ -1,8 +1,10 @@
-# Unreleased
+# v2.2.0 - 2020-02-11
+
+Breaking
+  * AZ-166: Use `random_password` instead of `random_string` for passwords generation: **this changes the generated value or need manual state edition**
 
 Changed
-  * AZ-166: Use `random_password` instead of `random_string` for passwords generation: **this changes the generated value or need manual state edition**
-  * AZ-182: Allow no \_user suffix
+  * AZ-182: Allow no `_user` suffix
 
 # v2.1.0 - 2019-12-18
 
