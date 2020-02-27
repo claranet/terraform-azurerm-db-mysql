@@ -7,12 +7,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  sku {
-    name     = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Gen5", var.capacity])
-    capacity = var.capacity
-    tier     = var.tier
-    family   = "Gen5"
-  }
+  sku_name = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Gen5", var.capacity])
 
   storage_profile {
     backup_retention_days = lookup(var.server_storage_profile, "backup_retention_days", null)
