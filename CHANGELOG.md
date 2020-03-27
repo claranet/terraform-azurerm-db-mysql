@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-202: use `sku_name` string parameter instead of deprecated `sku` map parameter
+
 # v2.2.0 - 2020-02-11
 
 Breaking
