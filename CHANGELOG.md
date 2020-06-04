@@ -1,3 +1,8 @@
+# v2.4.0 - Unreleased
+
+Added
+  * AZ-230: Add auto-grow parameter on storage_profile block
+
 # v2.3.0 - 2020-03-27
 
 Changed

@@ -13,6 +13,7 @@ resource "azurerm_mysql_server" "mysql_server" {
     backup_retention_days = lookup(var.server_storage_profile, "backup_retention_days", null)
     geo_redundant_backup  = lookup(var.server_storage_profile, "geo_redundant_backup", null)
     storage_mb            = lookup(var.server_storage_profile, "storage_mb", null)
+    auto_grow             = lookup(var.server_storage_profile, "auto_grow", null)
   }
 
   administrator_login          = var.administrator_login
