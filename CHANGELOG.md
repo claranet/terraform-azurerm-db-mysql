@@ -1,10 +1,13 @@
-# v2.x.x - Unreleased
+# v3.0.0 - Unreleased
+
+Breaking
+  * AZ-198: Upgrade for compatibility AzureRM 2.0
+
+# v2.4.0 - 2020-07-09
 
 Changed
   * AZ-206: Pin version AzureRM provider to be usable < 2.0
   * AZ-209: Update CI with Gitlab template
-
-# v2.4.0 - 2020-07-09
 
 Added
   * AZ-230: Add auto-grow parameter on `storage_profile` block
