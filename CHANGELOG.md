@@ -3,6 +3,10 @@
 Added
   * AZ-230: Add auto-grow parameter on storage_profile block
 
+Changed
+  * AZ-206: Pin version AzureRM provider to be usable < 2.0
+  * AZ-209: Update CI with Gitlab template
+
 # v2.3.0 - 2020-03-27
 
 Changed
