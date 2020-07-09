@@ -1,7 +1,7 @@
-# v2.4.0 - Unreleased
+# v2.4.0 - 2020-07-09
 
 Added
-  * AZ-230: Add auto-grow parameter on storage_profile block
+  * AZ-230: Add auto-grow parameter on `storage_profile` block
 
 Changed
   * AZ-206: Pin version AzureRM provider to be usable < 2.0
