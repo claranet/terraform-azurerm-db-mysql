@@ -7,15 +7,15 @@ with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_databas
 
 ## Requirements
 
-* [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.31
 * [MySQL Terraform provider](https://www.terraform.io/docs/providers/mysql/) >= 1.6
 
-## Terraform version compatibility
+## Version compatibility
 
-| Module version | Terraform version |
-|----------------|-------------------|
-| >= 2.x.x       | 0.12.x            |
-| < 2.x.x        | 0.11.x            |
+| Module version    | Terraform version | AzureRM version |
+|-------------------|-------------------|-----------------|
+| >= 3.x.x          | 0.12.x            | >= 2.10         |
+| >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
+| <  2.x.x          | 0.11.x            | <  2.0          |
 
 ## Usage
 
