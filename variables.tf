@@ -46,7 +46,7 @@ variable "administrator_login" {
 }
 
 variable "administrator_password" {
-  description = "MySQL administrator password. Strong Password : https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+  description = "MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
   type        = string
 }
 
@@ -69,13 +69,16 @@ variable "extra_tags" {
 
 variable "tier" {
   type        = string
-  description = "Tier for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier Possible values are: GeneralPurpose, Basic, MemoryOptimized"
+  description = <<DESC
+Tier for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier
+Possible values are: GeneralPurpose, Basic, MemoryOptimized.
+DESC
   default     = "GeneralPurpose"
 }
 
 variable "capacity" {
   type        = number
-  description = "Capacity for MySQL server sku : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity"
+  description = "Capacity for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity"
   default     = 4
 }
 
@@ -86,15 +89,16 @@ variable "server_storage_profile" {
     storage_mb            = 5120
     backup_retention_days = 10
     geo_redundant_backup  = "Enabled"
+    auto_grow             = true
   }
 
-  description = "Storage configuration : https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile"
+  description = "Storage configuration: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile"
 }
 
 variable "mysql_options" {
   type        = list(map(string))
   default     = []
-  description = "List of configuration options : https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
+  description = "List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
 }
 
 variable "mysql_version" {
@@ -116,13 +120,13 @@ variable "databases_names" {
 
 variable "databases_charset" {
   type        = map(string)
-  description = "Valid mysql charset : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+  description = "Valid mysql charset: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
   default     = {}
 }
 
 variable "databases_collation" {
   type        = map(string)
-  description = "Valid mysql collation : https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
+  description = "Valid mysql collation: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
   default     = {}
 }
 
