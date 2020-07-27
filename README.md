@@ -57,11 +57,11 @@ module "mysql" {
 
   allowed_cidrs = ["10.0.0.0/24", "12.34.56.78/32"]
 
-  server_storage_profile = {
-    storage_mb            = 5120
-    backup_retention_days = 10
-    geo_redundant_backup  = "Enabled"
-  }
+
+  storage_mb                   = 5120
+  backup_retention_days        = 10
+  geo_redundant_backup_enabled = true
+  auto_grow_enabled            = false
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
@@ -89,6 +89,8 @@ module "mysql" {
 | administrator\_password | MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
 | allowed\_cidrs | List of authorized cidrs | `list(string)` | n/a | yes |
 | allowed\_subnets | List of authorized subnet ids | `list(string)` | `[]` | no |
+| auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
+| backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | `number` | `4` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
@@ -102,6 +104,7 @@ module "mysql" {
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
 | force\_ssl | Force usage of SSL | `bool` | `true` | no |
+| geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
 | location | Azure location for Key Vault. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | `string` | `""` | no |
@@ -111,8 +114,8 @@ module "mysql" {
 | mysql\_version | Valid values are 5.6 and 5.7 | `string` | `"5.7"` | no |
 | name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
-| server\_storage\_profile | Storage configuration: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#storage_profile | `map(string)` | <pre>{<br>  "auto_grow": true,<br>  "backup_retention_days": 10,<br>  "geo_redundant_backup": "Enabled",<br>  "storage_mb": 5120<br>}</pre> | no |
 | stack | Name of application stack | `string` | n/a | yes |
+| storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
 | tier | Tier for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier<br>Possible values are: GeneralPurpose, Basic, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 
 ## Outputs

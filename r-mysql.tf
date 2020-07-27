@@ -9,17 +9,15 @@ resource "azurerm_mysql_server" "mysql_server" {
 
   sku_name = join("_", [lookup(local.tier_map, var.tier, "GeneralPurpose"), "Gen5", var.capacity])
 
-  storage_profile {
-    backup_retention_days = lookup(var.server_storage_profile, "backup_retention_days", null)
-    geo_redundant_backup  = lookup(var.server_storage_profile, "geo_redundant_backup", null)
-    storage_mb            = lookup(var.server_storage_profile, "storage_mb", null)
-    auto_grow             = lookup(var.server_storage_profile, "auto_grow", null)
-  }
+  backup_retention_days        = var.backup_retention_days
+  geo_redundant_backup_enabled = var.geo_redundant_backup_enabled
+  storage_mb                   = var.storage_mb
+  auto_grow_enabled            = var.auto_grow_enabled
 
   administrator_login          = var.administrator_login
   administrator_login_password = var.administrator_password
   version                      = var.mysql_version
-  ssl_enforcement              = var.force_ssl ? "Enabled" : "Disabled"
+  ssl_enforcement_enabled      = var.force_ssl
 
 
   tags = merge(local.default_tags, var.extra_tags)
