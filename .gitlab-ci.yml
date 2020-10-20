@@ -1,5 +1,6 @@
 ---
 include:
+  - template: "Workflows/Branch-Pipelines.gitlab-ci.yml"
   - project: "claranet/projects/cloud/azure/terraform/ci"
     ref: master
     file: "/module-tf_0.12-azurerm_1.x-validate.yml"
