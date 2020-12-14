@@ -1,8 +1,5 @@
 resource "azurerm_mysql_server" "mysql_server" {
-  name = coalesce(
-    var.custom_server_name,
-    local.default_name_server,
-  )
+  name = local.mysql_server_name
 
   location            = var.location
   resource_group_name = var.resource_group_name
