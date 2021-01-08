@@ -1,4 +1,4 @@
-# Unreleased
+# v3.1.0/v4.1.0 - 2021-01-08
 
 Changed
   * AZ-398: Force lowercase on default generated name
@@ -7,7 +7,6 @@ Changed
 
 Changed
   * AZ-273: Update README and CI, module compatible Terraform 0.13+ (now requires Terraform 0.12.26 minimum version)
-
 
 # v3.0.0 - 2020-07-27
 
