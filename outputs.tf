@@ -40,7 +40,6 @@ output "mysql_vnet_rule_ids" {
 output "mysql_databases_users" {
   description = "List of usernames of created users corresponding to input databases names."
   value       = local.db_users_login
-  sensitive   = true
 }
 
 output "mysql_databases_users_passwords" {
