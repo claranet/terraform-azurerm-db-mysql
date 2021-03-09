@@ -1,4 +1,4 @@
-# unreleased
+# v3.1.1/v4.1.1 - 2021-03-09
 
 Fixed
   * AZ-461: Remove sensitive attribute on databases users output
