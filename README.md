@@ -58,7 +58,6 @@ module "mysql" {
 
   allowed_cidrs = ["10.0.0.0/24", "12.34.56.78/32"]
 
-
   storage_mb                   = 5120
   backup_retention_days        = 10
   geo_redundant_backup_enabled = true
@@ -77,6 +76,11 @@ module "mysql" {
   databases_collation   = {
     "my_database" = "utf8_general_ci"
   }
+
+  logs_destinations_ids = [
+    data.terraform_remote_state.run.outputs.logs_storage_account_id,
+    data.terraform_remote_state.run.outputs.log_analytics_workspace_id
+  ]
 
   extra_tags = var.extra_tags
 }
@@ -99,8 +103,6 @@ module "mysql" {
 | databases\_charset | Valid mysql charset: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
 | databases\_collation | Valid mysql collation: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
 | databases\_names | List of databases names | `list(string)` | n/a | yes |
-| enable\_logs\_to\_log\_analytics | Boolean flag to specify whether the logs should be sent to Log Analytics | `bool` | `false` | no |
-| enable\_logs\_to\_storage | Boolean flag to specify whether the logs should be sent to the Storage Account | `bool` | `false` | no |
 | enable\_user\_suffix | True to append a \_user suffix to database users | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
@@ -108,9 +110,10 @@ module "mysql" {
 | geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
 | location | Azure location for Key Vault. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
-| logs\_log\_analytics\_workspace\_id | Log Analytics Workspace id for logs | `string` | `""` | no |
-| logs\_storage\_account\_id | Storage Account id for logs | `string` | `""` | no |
-| logs\_storage\_retention | Retention in days for logs on Storage Account | `string` | `"30"` | no |
+| logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
+| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | `null` | no |
+| logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
+| logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
 | mysql\_options | List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | `list(map(string))` | `[]` | no |
 | mysql\_version | Valid values are 5.6 and 5.7 | `string` | `"5.7"` | no |
 | name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
