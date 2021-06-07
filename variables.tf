@@ -141,36 +141,6 @@ variable "databases_collation" {
   default     = {}
 }
 
-variable "enable_logs_to_storage" {
-  description = "Boolean flag to specify whether the logs should be sent to the Storage Account"
-  type        = bool
-  default     = false
-}
-
-variable "enable_logs_to_log_analytics" {
-  description = "Boolean flag to specify whether the logs should be sent to Log Analytics"
-  type        = bool
-  default     = false
-}
-
-variable "logs_storage_retention" {
-  description = "Retention in days for logs on Storage Account"
-  type        = string
-  default     = "30"
-}
-
-variable "logs_storage_account_id" {
-  description = "Storage Account id for logs"
-  type        = string
-  default     = ""
-}
-
-variable "logs_log_analytics_workspace_id" {
-  description = "Log Analytics Workspace id for logs"
-  type        = string
-  default     = ""
-}
-
 variable "create_databases_users" {
   description = "True to create a user named <db>(_user) per database with generated password."
   type        = bool
@@ -181,4 +151,27 @@ variable "enable_user_suffix" {
   description = "True to append a _user suffix to database users"
   type        = bool
   default     = true
+}
+
+variable "logs_destinations_ids" {
+  type        = list(string)
+  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
+}
+
+variable "logs_categories" {
+  type        = list(string)
+  description = "Log categories to send to destinations."
+  default     = null
+}
+
+variable "logs_metrics_categories" {
+  type        = list(string)
+  description = "Metrics categories to send to destinations."
+  default     = null
+}
+
+variable "logs_retention_days" {
+  type        = number
+  description = "Number of days to keep logs on storage account"
+  default     = 30
 }
