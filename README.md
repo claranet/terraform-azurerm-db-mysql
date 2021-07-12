@@ -1,8 +1,8 @@
-# Azure Managed Mysql Service 
+# Azure Managed Mysql Service
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-mysql/azurerm/)
 
-This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html) 
-with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html)  and associated admin users along with logging activated and 
+This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html)
+with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html)  and associated admin users along with logging activated and
 [firewall rules](https://www.terraform.io/docs/providers/azurerm/r/mysql_firewall_rule.html).
 
 ## Requirements
@@ -71,7 +71,10 @@ module "mysql" {
   tier     = "GeneralPurpose"
   capacity = 4
 
-  allowed_cidrs = ["10.0.0.0/24", "12.34.56.78/32"]
+  allowed_cidrs = {
+    "claranet" = "10.0.0.0/24"
+    "customer" = "12.34.56.78/32"
+  }
 
   storage_mb                   = 5120
   backup_retention_days        = 10
@@ -80,17 +83,17 @@ module "mysql" {
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
-  databases_names        = ["my_database"]
+  databases        = {
+    "my_database" = {
+      "charset"   = "utf8"
+      "collation" = "utf8_general_ci"
+    }
+  }
 
   force_ssl     = true
   mysql_options = [{ name = "interactive_timeout", value = "600" }, { name = "wait_timeout", value = "260" }]
   mysql_version = "5.7"
-  databases_charset = {
-    "my_database" = "utf8"
-  }
-  databases_collation = {
-    "my_database" = "utf8_general_ci"
-  }
+  
 
   threat_detection_policy = {
     email_addresses = ["john@doe.com"]
@@ -140,9 +143,9 @@ module "mysql" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | administrator\_login | MySQL administrator login | `string` | n/a | yes |
-| administrator\_password | MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | n/a | yes |
-| allowed\_cidrs | List of authorized cidrs | `list(string)` | n/a | yes |
-| allowed\_subnets | List of authorized subnet ids | `list(string)` | `[]` | no |
+| administrator\_password | MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017 | `string` | `""` | no |
+| allowed\_cidrs | List of authorized cidrs | `map(string)` | n/a | yes |
+| allowed\_subnets | List of authorized subnet ids | `map(string)` | `[]` | no |
 | auto\_grow\_enabled | Enable/Disable auto-growing of the storage. | `bool` | `false` | no |
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | `number` | `4` | no |
@@ -151,7 +154,7 @@ module "mysql" {
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases\_charset | Valid mysql charset: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
 | databases\_collation | Valid mysql collation: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html | `map(string)` | `{}` | no |
-| databases\_names | List of databases names | `list(string)` | n/a | yes |
+| databases\_names | List of databases names | `map(string)` | n/a | yes |
 | enable\_user\_suffix | True to append a \_user suffix to database users | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
@@ -163,7 +166,7 @@ module "mysql" {
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
-| mysql\_options | List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | `list(map(string))` | `[]` | no |
+| mysql\_options | List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | `map(string)` | `[]` | no |
 | mysql\_version | Valid values are 5.6 and 5.7 | `string` | `"5.7"` | no |
 | name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
 | public\_network\_access\_enabled | Enable public network access for this server | `bool` | `true` | no |
@@ -178,16 +181,18 @@ module "mysql" {
 | Name | Description |
 |------|-------------|
 | mysql\_administrator\_login | Administrator login for MySQL server |
+| mysql\_administrator\_password | Administrator password for mysql server |
 | mysql\_configuration\_id | The list of all configurations resource ids |
 | mysql\_database\_ids | The list of all database resource ids |
+| mysql\_databases | Map of databases infos |
 | mysql\_databases\_names | List of databases names |
 | mysql\_databases\_users | List of usernames of created users corresponding to input databases names. |
-| mysql\_databases\_users\_passwords | List of passwords of created users corresponding to input databases names. |
-| mysql\_firewall\_rule\_ids | List of MySQL created rules |
+| mysql\_databases\_users\_passwords | Map of passwords of created users corresponding to input databases names. |
+| mysql\_firewall\_rule\_ids | Map of MySQL created rules |
 | mysql\_fqdn | FQDN of the MySQL server |
 | mysql\_server\_id | MySQL server ID |
 | mysql\_server\_name | MySQL server name |
-| mysql\_vnet\_rule\_ids | The list of all vnet rule resource ids |
+| mysql\_vnet\_rules | The map of all vnet rules |
 <!-- END_TF_DOCS -->
 ## Related documentation
 

@@ -35,19 +35,25 @@ resource "azurerm_mysql_server" "mysql_server" {
 }
 
 resource "azurerm_mysql_database" "mysql_db" {
-  count               = length(var.databases_names)
-  charset             = lookup(var.databases_charset, element(var.databases_names, count.index), "utf8")
-  collation           = lookup(var.databases_collation, element(var.databases_names, count.index), "utf8_general_ci")
-  name                = element(var.databases_names, count.index)
+  for_each            = var.databases
+  charset             = lookup(each.value, "charset", "utf8")
+  collation           = lookup(each.value, "collation", "utf8_general_ci")
+  name                = each.key
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_server.mysql_server.name
 }
 
 resource "azurerm_mysql_configuration" "mysql_config" {
-  count = length(var.mysql_options)
+  for_each = var.mysql_options
 
-  name                = var.mysql_options[count.index].name
+  name                = each.key
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_server.mysql_server.name
-  value               = var.mysql_options[count.index].value
+  value               = each.value
+}
+
+resource "random_password" "mysql_administrator_password" {
+  length           = 32
+  special          = true
+  override_special = "@#%&*()-_=+[]{}<>:?"
 }

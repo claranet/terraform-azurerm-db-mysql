@@ -48,17 +48,18 @@ variable "administrator_login" {
 variable "administrator_password" {
   description = "MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
   type        = string
+  default     = ""
 }
 
 variable "allowed_cidrs" {
-  type        = list(string)
+  type        = map(string)
   description = "List of authorized cidrs"
 }
 
 variable "allowed_subnets" {
-  type        = list(string)
+  type        = map(string)
   description = "List of authorized subnet ids"
-  default     = []
+  default     = {}
 }
 
 variable "extra_tags" {
@@ -107,9 +108,9 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "mysql_options" {
-  type        = list(map(string))
-  default     = []
-  description = "List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
+  type        = map(string)
+  default     = {}
+  description = "Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
 }
 
 variable "mysql_version" {
@@ -124,21 +125,9 @@ variable "force_ssl" {
   description = "Force usage of SSL"
 }
 
-variable "databases_names" {
-  description = "List of databases names"
-  type        = list(string)
-}
-
-variable "databases_charset" {
-  type        = map(string)
-  description = "Valid mysql charset: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-  default     = {}
-}
-
-variable "databases_collation" {
-  type        = map(string)
-  description = "Valid mysql collation: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-  default     = {}
+variable "databases" {
+  description = "Map of databases with default collation and charset"
+  type        = map(map(string))
 }
 
 variable "create_databases_users" {
