@@ -10,7 +10,8 @@ terraform {
       version = ">= 1.6"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
+      version = ">= 2.0"
     }
   }
 }

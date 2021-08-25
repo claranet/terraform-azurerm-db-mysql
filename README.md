@@ -12,8 +12,9 @@ with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_databas
 ## Version compatibility
 
 | Module version    | Terraform version | AzureRM version |
-|-------------------|-------------------|-----------------|
-| >= 4.x.x          | 0.13.x            | >= 2.10          |
+| ----------------- | ----------------- | --------------- |
+| >= 5.x.x          | 0.15.x & 1.0.x    | >= 2.10         |
+| >= 4.x.x          | 0.13.x            | >= 2.10         |
 | >= 3.x.x          | 0.12.x            | >= 2.10         |
 | >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
 | <  2.x.x          | 0.11.x            | <  2.0          |
@@ -86,6 +87,34 @@ module "mysql" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | >= 2.10 |
+| mysql.create-users | >= 1.6 |
+| random | >= 2.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| diagnostics | claranet/diagnostic-settings/azurerm | 4.0.2 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_mysql_configuration.mysql_config](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_configuration) | resource |
+| [azurerm_mysql_database.mysql_db](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_database) | resource |
+| [azurerm_mysql_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_firewall_rule) | resource |
+| [azurerm_mysql_server.mysql_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_server) | resource |
+| [azurerm_mysql_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_virtual_network_rule) | resource |
+| [mysql_grant.roles](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/grant) | resource |
+| [mysql_user.users](https://registry.terraform.io/providers/terraform-providers/mysql/latest/docs/resources/user) | resource |
+| [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -137,11 +166,7 @@ module "mysql" {
 | mysql\_server\_id | MySQL server ID |
 | mysql\_server\_name | MySQL server name |
 | mysql\_vnet\_rule\_ids | The list of all vnet rule resource ids |
-
+<!-- END_TF_DOCS -->
 ## Related documentation
-
-Terraform Azure MySQL Server documentation: [www.terraform.io/docs/providers/azurerm/r/mysql_server.html](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html)
-
-Terraform Azure MySQL Database documentation: [www.terraform.io/docs/providers/azurerm/r/mysql_database.html](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html)
 
 Microsoft Azure documentation: [docs.microsoft.com/fr-fr/azure/mysql/overview](https://docs.microsoft.com/fr-fr/azure/mysql/overview)
