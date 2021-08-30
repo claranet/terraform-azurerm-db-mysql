@@ -156,6 +156,7 @@ variable "enable_user_suffix" {
 variable "logs_destinations_ids" {
   type        = list(string)
   description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
+  default     = []
 }
 
 variable "logs_categories" {
@@ -174,4 +175,46 @@ variable "logs_retention_days" {
   type        = number
   description = "Number of days to keep logs on storage account"
   default     = 30
+}
+
+variable "tdp_enabled" {
+  description = "(Required) Threat detection policy enabled if set to true"
+#  type        = bool
+  default     = false
+}
+
+variable "tdp_disabled_alerts" {
+  description = "(Optional) We can disable specific alerts for the threat detection policy"
+  type        = list(string)
+  default     = []
+}
+
+variable "tdp_email_account_admins" {
+  description = "(Optional) Set to email the threat detection warnings to admins if true"
+  type        = bool
+  default     = false
+}
+
+variable "tdp_email_addresses" {
+  description = "(Optional) List of emails to send email to for threat detection warnings"
+  type        = list(string)
+  default     = []
+}
+
+variable "tdp_retention_days" {
+  description = "(Optional) Number of days to retain threats logged"
+  type        = number
+  default     = 0
+}
+
+variable "tdp_storage_account_access_key" {
+  description = "(Optional) Specifies the identifier key of the Threat Detection audit storage account."
+  type        = string
+  default     = null
+}
+
+variable "tdp_storage_endpoint" {
+  description = "(Optional) Specifies the blob storage endpoint (e.g. https://MyAccount.blob.core.windows.net). This blob storage will hold all Threat Detection audit logs."
+  type        = string
+  default     = null
 }

@@ -16,6 +16,15 @@ resource "azurerm_mysql_server" "mysql_server" {
   version                      = var.mysql_version
   ssl_enforcement_enabled      = var.force_ssl
 
+  threat_detection_policy {
+    enabled                    = var.tdp_enabled
+    disabled_alerts            = var.tdp_enabled ? var.tdp_disabled_alerts : null
+    email_account_admins       = var.tdp_enabled ? var.tdp_email_account_admins : null
+    email_addresses            = var.tdp_enabled ? var.tdp_email_addresses : null
+    retention_days             = var.tdp_enabled ? var.tdp_retention_days : null
+    storage_account_access_key = var.tdp_enabled ? var.tdp_storage_account_access_key : null
+    storage_endpoint           = var.tdp_enabled ? var.tdp_storage_endpoint : null
+  }
 
   tags = merge(local.default_tags, var.extra_tags)
 }
