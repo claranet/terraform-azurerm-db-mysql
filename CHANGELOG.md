@@ -1,10 +1,10 @@
 # Unreleased
 
-Changed
-  * AZ-572: Revamp examples and improve CI
-
 Added
   * AZ-566: Add public network access option
+
+Changed
+  * AZ-572: Revamp examples and improve CI
 
 # v3.2.1/v4.2.1 - 2021-08-27
 
