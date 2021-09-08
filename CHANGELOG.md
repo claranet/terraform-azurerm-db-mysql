@@ -1,6 +1,7 @@
 # Unreleased
 
 Added
+  * AZ-568: Add threat detection policy option
   * AZ-566: Add public network access option
 
 Changed

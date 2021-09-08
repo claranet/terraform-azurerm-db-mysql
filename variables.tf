@@ -181,3 +181,9 @@ variable "public_network_access_enabled" {
   description = "Enable public network access for this server"
   default     = true
 }
+
+variable "threat_detection_policy" {
+  type        = any
+  description = "Threat detection policy configuration, known in the API as Server Security Alerts Policy"
+  default     = {}
+}
