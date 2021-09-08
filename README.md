@@ -112,7 +112,7 @@ module "mysql" {
 
 | Name | Version |
 |------|---------|
-| azurerm | >= 2.10 |
+| azurerm | >= 2.23 |
 | mysql.create-users | >= 1.6 |
 | random | >= 2.0 |
 
