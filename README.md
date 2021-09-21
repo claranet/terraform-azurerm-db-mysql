@@ -10,7 +10,7 @@ with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_databas
 * [MySQL Terraform provider](https://www.terraform.io/docs/providers/mysql/) >= 1.6
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
