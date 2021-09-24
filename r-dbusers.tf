@@ -1,14 +1,14 @@
 resource "random_password" "db_passwords" {
-  for_each = var.create_databases_users ? toset(keys(var.databases)) : []
+  for_each = toset(var.create_databases_users ? keys(var.databases) : [])
 
   special = false
   length  = 32
 }
 
 resource "mysql_user" "users" {
-  for_each = var.create_databases_users ? toset(keys(var.databases)) : []
+  for_each = toset(var.create_databases_users ? keys(var.databases) : [])
 
-  provider = mysql.create-users
+  provider = mysql.users_mgmt
 
   user               = var.enable_user_suffix ? format("%s_user", each.key) : each.key
   plaintext_password = random_password.db_passwords[each.key].result
@@ -18,9 +18,9 @@ resource "mysql_user" "users" {
 }
 
 resource "mysql_grant" "roles" {
-  for_each = var.create_databases_users ? toset(keys(var.databases)) : []
+  for_each = toset(var.create_databases_users ? keys(var.databases) : [])
 
-  provider = mysql.create-users
+  provider = mysql.users_mgmt
 
   user       = var.enable_user_suffix ? format("%s_user", each.key) : each.key
   host       = "%"

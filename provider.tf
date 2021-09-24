@@ -1,5 +1,5 @@
 provider "mysql" {
-  alias = "create-users"
+  alias = "users_mgmt"
 
   endpoint = format("%s:3306", azurerm_mysql_server.mysql_server.fqdn)
   username = local.administrator_login
