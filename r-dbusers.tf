@@ -25,7 +25,7 @@ resource "mysql_grant" "roles" {
   user       = var.enable_user_suffix ? format("%s_user", each.key) : each.key
   host       = "%"
   database   = each.key
-  privileges = ["ALL"]
+  privileges = ["ALL PRIVILEGES"]
 
   depends_on = [mysql_user.users]
 }

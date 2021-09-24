@@ -1,25 +1,5 @@
-variable "client_name" {
-  description = "Name of client"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of application's environnement"
-  type        = string
-}
-
-variable "stack" {
-  description = "Name of application stack"
-  type        = string
-}
-
-variable "resource_group_name" {
-  description = "Name of the application ressource group, herited from infra module"
-  type        = string
-}
-
 variable "location" {
-  description = "Azure location for Key Vault."
+  description = "Azure location."
   type        = string
 }
 
@@ -28,8 +8,28 @@ variable "location_short" {
   type        = string
 }
 
+variable "client_name" {
+  description = "Client name/account used in naming"
+  type        = string
+}
+
+variable "environment" {
+  description = "Project environment"
+  type        = string
+}
+
+variable "stack" {
+  description = "Project stack name"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
 variable "name_prefix" {
-  description = "Optional prefix for PostgreSQL server name"
+  description = "Optional prefix for the generated name"
   type        = string
   default     = ""
 }
@@ -46,19 +46,19 @@ variable "administrator_login" {
 }
 
 variable "administrator_password" {
-  description = "MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+  description = "MySQL administrator password. If not set, randomly generated"
   type        = string
   default     = ""
 }
 
 variable "allowed_cidrs" {
   type        = map(string)
-  description = "List of authorized cidrs"
+  description = "Map of authorized cidrs"
 }
 
 variable "allowed_subnets" {
   type        = map(string)
-  description = "List of authorized subnet ids"
+  description = "Map of authorized subnet ids"
   default     = {}
 }
 
@@ -108,21 +108,21 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "mysql_options" {
+  description = "Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
   type        = map(string)
   default     = {}
-  description = "Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
 }
 
 variable "mysql_version" {
+  description = "Valid values are 5.6, 5.7 and 8.0"
   type        = string
   default     = "5.7"
-  description = "Valid values are 5.6 and 5.7"
 }
 
 variable "force_ssl" {
+  description = "Enforce SSL connection"
   type        = bool
   default     = true
-  description = "Force usage of SSL"
 }
 
 variable "databases" {
