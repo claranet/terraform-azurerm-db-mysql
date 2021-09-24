@@ -42,7 +42,10 @@ module "mysql" {
   tier     = "GeneralPurpose"
   capacity = 4
 
-  allowed_cidrs = ["10.0.0.0/24", "12.34.56.78/32"]
+  allowed_cidrs = {
+    peered-vnet     = "10.0.0.0/24",
+    customer-office = "12.34.56.78/32"
+  }
 
   storage_mb                   = 5120
   backup_retention_days        = 10
@@ -51,17 +54,19 @@ module "mysql" {
 
   administrator_login    = var.administrator_login
   administrator_password = var.administrator_password
-  databases_names        = ["my_database"]
+  databases = {
+    "documents" = {
+      "charset"   = "utf8"
+      "collation" = "utf8_general_ci"
+    }
+  }
 
-  force_ssl     = true
-  mysql_options = [{ name = "interactive_timeout", value = "600" }, { name = "wait_timeout", value = "260" }]
+  force_ssl = true
+  mysql_options = {
+    interactive_timeout = "600",
+    wait_timeout        = "260"
+  }
   mysql_version = "5.7"
-  databases_charset = {
-    "my_database" = "utf8"
-  }
-  databases_collation = {
-    "my_database" = "utf8_general_ci"
-  }
 
   threat_detection_policy = {
     email_addresses = ["john@doe.com"]

@@ -15,7 +15,7 @@ output "mysql_databases" {
 }
 
 output "mysql_databases_names" {
-  value       = [for db in azurerm_mysql_database.mysql_db: db.name]
+  value       = [for db in azurerm_mysql_database.mysql_db : db.name]
   description = "List of databases names"
 }
 
@@ -50,17 +50,17 @@ output "mysql_vnet_rules" {
 }
 
 output "mysql_databases_users" {
-  description = "List of usernames of created users corresponding to input databases names."
-  value       = mysql_user.users
+  description = "Map of user name for each database"
+  value       = { for db, c in var.databases : db => mysql_user.users[db].user }
 }
 
-output "mysql_databases_users_passwords" {
-  description = "Map of passwords of created users corresponding to input databases names."
-  value       = { for k, v in random_password.db_passwords : k => v.results }
+output "mysql_databases_logins" {
+  description = "Map of user login for each database"
+  value       = { for db, c in var.databases : db => format("%s@%s", mysql_user.users[db].user, azurerm_mysql_server.mysql_server.name) }
+}
+
+output "mysql_databases_passwords" {
+  description = "Map of user password for each database"
+  value       = { for db, c in var.databases : db => random_password.db_passwords[db].result }
   sensitive   = true
-}
-
-output "mysql_configuration_id" {
-  value       = azurerm_mysql_configuration.mysql_config[*].id
-  description = "The list of all configurations resource ids"
 }
