@@ -19,7 +19,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   public_network_access_enabled = var.public_network_access_enabled
 
   dynamic "threat_detection_policy" {
-    for_each = [var.threat_detection_policy]
+    for_each = var.threat_detection_policy != null ? [var.threat_detection_policy] : []
     content {
       enabled                    = lookup(threat_detection_policy.value, "enabled", false)
       disabled_alerts            = lookup(threat_detection_policy.value, "disabled_alerts", [])
