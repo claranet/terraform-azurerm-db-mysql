@@ -93,7 +93,7 @@ module "mysql" {
   }
 
   threat_detection_policy = {
-    enabled = true
+    email_addresses = ["john@doe.com"]
   }
 
   logs_destinations_ids = [

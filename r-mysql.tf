@@ -21,7 +21,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   dynamic "threat_detection_policy" {
     for_each = var.threat_detection_policy != null ? [var.threat_detection_policy] : []
     content {
-      enabled                    = lookup(threat_detection_policy.value, "enabled", false)
+      enabled                    = lookup(threat_detection_policy.value, "enabled", true)
       disabled_alerts            = lookup(threat_detection_policy.value, "disabled_alerts", [])
       email_account_admins       = lookup(threat_detection_policy.value, "email_account_admins", false)
       email_addresses            = lookup(threat_detection_policy.value, "email_addresses", [])
