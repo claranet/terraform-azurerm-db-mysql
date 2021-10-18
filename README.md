@@ -92,6 +92,10 @@ module "mysql" {
     "my_database" = "utf8_general_ci"
   }
 
+  threat_detection_policy = {
+    email_addresses = ["john@doe.com"]
+  }
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
@@ -108,7 +112,7 @@ module "mysql" {
 
 | Name | Version |
 |------|---------|
-| azurerm | >= 2.10 |
+| azurerm | >= 2.23 |
 | mysql.create-users | >= 1.6 |
 | random | >= 2.0 |
 
@@ -166,6 +170,7 @@ module "mysql" {
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | stack | Name of application stack | `string` | n/a | yes |
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
+| threat\_detection\_policy | Threat detection policy configuration, known in the API as Server Security Alerts Policy | `any` | `null` | no |
 | tier | Tier for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier<br>Possible values are: GeneralPurpose, Basic, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 
 ## Outputs

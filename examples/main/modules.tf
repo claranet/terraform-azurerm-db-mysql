@@ -63,6 +63,10 @@ module "mysql" {
     "my_database" = "utf8_general_ci"
   }
 
+  threat_detection_policy = {
+    email_addresses = ["john@doe.com"]
+  }
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id

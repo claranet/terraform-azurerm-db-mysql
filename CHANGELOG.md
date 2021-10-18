@@ -1,10 +1,11 @@
 # Unreleased
 
+Added
+  * AZ-568: Add threat detection policy option
+  * AZ-566: Add public network access option
+
 Changed
   * AZ-572: Revamp examples and improve CI
-
-Added
-  * AZ-566: Add public network access option
 
 # v3.2.1/v4.2.1 - 2021-08-27
 

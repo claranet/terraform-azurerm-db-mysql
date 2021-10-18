@@ -18,6 +18,19 @@ resource "azurerm_mysql_server" "mysql_server" {
 
   public_network_access_enabled = var.public_network_access_enabled
 
+  dynamic "threat_detection_policy" {
+    for_each = var.threat_detection_policy != null ? [var.threat_detection_policy] : []
+    content {
+      enabled                    = lookup(threat_detection_policy.value, "enabled", true)
+      disabled_alerts            = lookup(threat_detection_policy.value, "disabled_alerts", [])
+      email_account_admins       = lookup(threat_detection_policy.value, "email_account_admins", false)
+      email_addresses            = lookup(threat_detection_policy.value, "email_addresses", [])
+      retention_days             = lookup(threat_detection_policy.value, "retention_days", 0)
+      storage_account_access_key = lookup(threat_detection_policy.value, "storage_account_access_key", null)
+      storage_endpoint           = lookup(threat_detection_policy.value, "storage_endpoint", null)
+    }
+  }
+
   tags = merge(local.default_tags, var.extra_tags)
 }
 
