@@ -162,6 +162,7 @@ module "mysql" {
 | mysql\_options | List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters | `list(map(string))` | `[]` | no |
 | mysql\_version | Valid values are 5.6 and 5.7 | `string` | `"5.7"` | no |
 | name\_prefix | Optional prefix for PostgreSQL server name | `string` | `""` | no |
+| public\_network\_access\_enabled | Enable public network access for this server | `bool` | `true` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | stack | Name of application stack | `string` | n/a | yes |
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |

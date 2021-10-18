@@ -175,3 +175,9 @@ variable "logs_retention_days" {
   description = "Number of days to keep logs on storage account"
   default     = 30
 }
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Enable public network access for this server"
+  default     = true
+}

@@ -16,6 +16,7 @@ resource "azurerm_mysql_server" "mysql_server" {
   version                      = var.mysql_version
   ssl_enforcement_enabled      = var.force_ssl
 
+  public_network_access_enabled = var.public_network_access_enabled
 
   tags = merge(local.default_tags, var.extra_tags)
 }
