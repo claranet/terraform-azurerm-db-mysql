@@ -156,7 +156,6 @@ module "mysql" {
 | create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases | Map of databases with default collation and charset | `map(map(string))` | n/a | yes |
-| enable\_user\_suffix | True to append a \_user suffix to database users | `bool` | `true` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
 | force\_ssl | Enforce SSL connection | `bool` | `true` | no |
@@ -176,6 +175,7 @@ module "mysql" {
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
 | threat\_detection\_policy | Threat detection policy configuration, known in the API as Server Security Alerts Policy | `any` | `null` | no |
 | tier | Tier for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier<br>Possible values are: GeneralPurpose, Basic, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
+| user\_suffix | Suffix to append to the created users | `string` | `"_user"` | no |
 
 ## Outputs
 

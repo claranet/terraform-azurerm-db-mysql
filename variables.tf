@@ -136,10 +136,10 @@ variable "create_databases_users" {
   default     = true
 }
 
-variable "enable_user_suffix" {
-  description = "True to append a _user suffix to database users"
-  type        = bool
-  default     = true
+variable "user_suffix" {
+  description = "Suffix to append to the created users"
+  type        = string
+  default     = "_user"
 }
 
 variable "logs_destinations_ids" {

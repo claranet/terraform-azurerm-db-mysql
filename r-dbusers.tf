@@ -10,7 +10,7 @@ resource "mysql_user" "users" {
 
   provider = mysql.users_mgmt
 
-  user               = var.enable_user_suffix ? format("%s_user", each.key) : each.key
+  user               = format("%s%s", each.key, local.user_suffix)
   plaintext_password = random_password.db_passwords[each.key].result
   host               = "%"
 
@@ -22,7 +22,7 @@ resource "mysql_grant" "roles" {
 
   provider = mysql.users_mgmt
 
-  user       = var.enable_user_suffix ? format("%s_user", each.key) : each.key
+  user       = format("%s%s", each.key, local.user_suffix)
   host       = "%"
   database   = each.key
   privileges = ["ALL PRIVILEGES"]
