@@ -1,25 +1,5 @@
-variable "client_name" {
-  description = "Name of client"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of application's environnement"
-  type        = string
-}
-
-variable "stack" {
-  description = "Name of application stack"
-  type        = string
-}
-
-variable "resource_group_name" {
-  description = "Name of the application ressource group, herited from infra module"
-  type        = string
-}
-
 variable "location" {
-  description = "Azure location for Key Vault."
+  description = "Azure location."
   type        = string
 }
 
@@ -28,8 +8,28 @@ variable "location_short" {
   type        = string
 }
 
+variable "client_name" {
+  description = "Client name/account used in naming"
+  type        = string
+}
+
+variable "environment" {
+  description = "Project environment"
+  type        = string
+}
+
+variable "stack" {
+  description = "Project stack name"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
+
 variable "name_prefix" {
-  description = "Optional prefix for PostgreSQL server name"
+  description = "Optional prefix for the generated name"
   type        = string
   default     = ""
 }
@@ -46,19 +46,20 @@ variable "administrator_login" {
 }
 
 variable "administrator_password" {
-  description = "MySQL administrator password. Strong Password: https://docs.microsoft.com/en-us/sql/relational-databases/security/strong-passwords?view=sql-server-2017"
+  description = "MySQL administrator password. If not set, randomly generated"
   type        = string
+  default     = ""
 }
 
 variable "allowed_cidrs" {
-  type        = list(string)
-  description = "List of authorized cidrs"
+  type        = map(string)
+  description = "Map of authorized cidrs"
 }
 
 variable "allowed_subnets" {
-  type        = list(string)
-  description = "List of authorized subnet ids"
-  default     = []
+  type        = map(string)
+  description = "Map of authorized subnet ids"
+  default     = {}
 }
 
 variable "extra_tags" {
@@ -107,38 +108,26 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "mysql_options" {
-  type        = list(map(string))
-  default     = []
-  description = "List of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
+  description = "Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
+  type        = map(string)
+  default     = {}
 }
 
 variable "mysql_version" {
+  description = "Valid values are 5.6, 5.7 and 8.0"
   type        = string
   default     = "5.7"
-  description = "Valid values are 5.6 and 5.7"
 }
 
 variable "force_ssl" {
+  description = "Enforce SSL connection"
   type        = bool
   default     = true
-  description = "Force usage of SSL"
 }
 
-variable "databases_names" {
-  description = "List of databases names"
-  type        = list(string)
-}
-
-variable "databases_charset" {
-  type        = map(string)
-  description = "Valid mysql charset: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-  default     = {}
-}
-
-variable "databases_collation" {
-  type        = map(string)
-  description = "Valid mysql collation: https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html"
-  default     = {}
+variable "databases" {
+  description = "Map of databases with default collation and charset"
+  type        = map(map(string))
 }
 
 variable "create_databases_users" {
@@ -147,10 +136,10 @@ variable "create_databases_users" {
   default     = true
 }
 
-variable "enable_user_suffix" {
-  description = "True to append a _user suffix to database users"
-  type        = bool
-  default     = true
+variable "user_suffix" {
+  description = "Suffix to append to the created users"
+  type        = string
+  default     = "_user"
 }
 
 variable "logs_destinations_ids" {

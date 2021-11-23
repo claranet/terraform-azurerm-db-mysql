@@ -1,5 +1,8 @@
 # v4.3.0 - 2021-11-23
 
+Breaking
+  * AZ-531: Rework module with new provider
+
 Added
   * AZ-568: Add threat detection policy option
   * AZ-566: Add public network access option

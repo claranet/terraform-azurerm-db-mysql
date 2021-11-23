@@ -1,13 +1,13 @@
 terraform {
-  required_version = ">= 0.12.26"
+  required_version = ">= 0.13"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">= 2.23"
     }
     mysql = {
-      source  = "terraform-providers/mysql"
-      version = ">= 1.6"
+      source  = "winebarrel/mysql"
+      version = ">=1.10.4"
     }
     random = {
       source  = "hashicorp/random"

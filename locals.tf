@@ -9,8 +9,10 @@ locals {
     stack = var.stack
   }
 
-  administrator_login = format("%s@%s", azurerm_mysql_server.mysql_server.administrator_login, azurerm_mysql_server.mysql_server.name)
-  db_users_login      = formatlist("%s@%s", mysql_user.users.*.user, azurerm_mysql_server.mysql_server.name)
+  administrator_login    = format("%s@%s", azurerm_mysql_server.mysql_server.administrator_login, azurerm_mysql_server.mysql_server.name)
+  administrator_password = coalesce(var.administrator_password, random_password.mysql_administrator_password.result)
+
+  user_suffix = var.user_suffix != null ? var.user_suffix : ""
 
   tier_map = {
     "GeneralPurpose"  = "GP"
