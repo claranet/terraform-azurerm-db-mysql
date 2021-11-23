@@ -1,4 +1,4 @@
-# Unreleased
+# v4.3.0 - 2021-11-23
 
 Added
   * AZ-568: Add threat detection policy option
