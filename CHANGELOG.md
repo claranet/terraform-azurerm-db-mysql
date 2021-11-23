@@ -1,7 +1,9 @@
-# v4.3.0 - 2021-11-23
+# v4.4.0 - 2021-11-23
 
 Breaking
-  * AZ-531: Rework module with new provider
+  * AZ-531: Rework module with new MySQL provider
+
+# v4.3.0 - 2021-11-23
 
 Added
   * AZ-568: Add threat detection policy option
