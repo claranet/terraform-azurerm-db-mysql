@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-617: Fix outputs when no user
+
 # v4.4.0 - 2021-11-23
 
 Breaking
