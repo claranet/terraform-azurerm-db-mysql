@@ -1,4 +1,4 @@
-# Unreleased
+# v4.4.1 - 2021-11-30
 
 Fixed
   * AZ-617: Fix outputs when no user
