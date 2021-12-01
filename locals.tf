@@ -19,4 +19,13 @@ locals {
     "Basic"           = "B"
     "MemoryOptimized" = "MO"
   }
+
+  default_mysql_options = {
+    log_bin_trust_function_creators = "ON",
+    connect_timeout                 = 60,
+    interactive_timeout             = 28800,
+    wait_timeout                    = 28800
+  }
+
+  mysql_options = merge(local.default_mysql_options, var.mysql_options)
 }

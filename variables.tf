@@ -108,7 +108,15 @@ variable "geo_redundant_backup_enabled" {
 }
 
 variable "mysql_options" {
-  description = "Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters"
+  description = <<EOF
+    Map of configuration options: https://docs.microsoft.com/fr-fr/azure/mysql/howto-server-parameters#list-of-configurable-server-parameters. Merged with default_mysql_options local:
+    ```
+    log_bin_trust_function_creators = "ON"
+    connect_timeout                 = 60
+    interactive_timeout             = 28800
+    wait_timeout                    = 28800
+    ```
+  EOF
   type        = map(string)
   default     = {}
 }

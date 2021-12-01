@@ -1,3 +1,14 @@
+# Unreleased
+
+Added
+  * AZ-623: Add default mysql options, can be overriden with `mysql_options` variable
+    ```
+    log_bin_trust_function_creators = "ON"
+    connect_timeout                 = 60
+    interactive_timeout             = 28800
+    wait_timeout                    = 28800
+    ```
+
 # v4.4.1 - 2021-11-30
 
 Fixed
