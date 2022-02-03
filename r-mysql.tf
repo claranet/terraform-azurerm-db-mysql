@@ -44,7 +44,7 @@ resource "azurerm_mysql_database" "mysql_db" {
 }
 
 resource "azurerm_mysql_configuration" "mysql_config" {
-  for_each = var.mysql_options
+  for_each = local.mysql_options
 
   name                = each.key
   resource_group_name = var.resource_group_name
