@@ -1,4 +1,4 @@
-# Unreleased
+# v4.5.0 - 2022-02-03
 
 Added
   * AZ-623: Add default mysql options, can be overriden with `mysql_options` variable
