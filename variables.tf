@@ -28,18 +28,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Optional prefix for the generated name"
-  type        = string
-  default     = ""
-}
-
-variable "custom_server_name" {
-  type        = string
-  description = "Custom Server Name identifier"
-  default     = ""
-}
-
 variable "administrator_login" {
   description = "MySQL administrator login"
   type        = string
@@ -148,29 +136,6 @@ variable "user_suffix" {
   description = "Suffix to append to the created users"
   type        = string
   default     = "_user"
-}
-
-variable "logs_destinations_ids" {
-  type        = list(string)
-  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
-}
-
-variable "logs_categories" {
-  type        = list(string)
-  description = "Log categories to send to destinations."
-  default     = null
-}
-
-variable "logs_metrics_categories" {
-  type        = list(string)
-  description = "Metrics categories to send to destinations."
-  default     = null
-}
-
-variable "logs_retention_days" {
-  type        = number
-  description = "Number of days to keep logs on storage account"
-  default     = 30
 }
 
 variable "public_network_access_enabled" {
