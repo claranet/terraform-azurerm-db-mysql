@@ -50,12 +50,6 @@ variable "allowed_subnets" {
   default     = {}
 }
 
-variable "extra_tags" {
-  type        = map(string)
-  description = "Map of custom tags"
-  default     = {}
-}
-
 variable "tier" {
   type        = string
   description = <<DESC

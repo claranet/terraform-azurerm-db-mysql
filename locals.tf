@@ -1,9 +1,4 @@
 locals {
-  default_tags = {
-    env   = var.environment
-    stack = var.stack
-  }
-
   administrator_login    = format("%s@%s", azurerm_mysql_server.mysql_server.administrator_login, azurerm_mysql_server.mysql_server.name)
   administrator_password = coalesce(var.administrator_password, random_password.mysql_administrator_password.result)
 

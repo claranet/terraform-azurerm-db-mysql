@@ -160,6 +160,7 @@ module "mysql" {
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases | Map of databases with default collation and charset | `map(map(string))` | n/a | yes |
+| default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
 | force\_ssl | Enforce SSL connection | `bool` | `true` | no |
