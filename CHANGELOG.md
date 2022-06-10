@@ -1,4 +1,4 @@
-# Unreleased
+# v5.2.0 - 2022-06-10
  
 Added
   * AZ-775: Added `force_ssl_minimal_version` variable to fix plan with force_ssl=false
