@@ -17,5 +17,6 @@ locals {
     wait_timeout                    = 28800
   }
 
-  mysql_options = merge(local.default_mysql_options, var.mysql_options)
+  mysql_options             = merge(local.default_mysql_options, var.mysql_options)
+  force_ssl_minimal_version = var.force_ssl ? var.force_ssl_minimal_version : "TLSEnforcementDisabled"
 }

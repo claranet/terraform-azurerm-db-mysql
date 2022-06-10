@@ -11,10 +11,11 @@ resource "azurerm_mysql_server" "mysql_server" {
   storage_mb                   = var.storage_mb
   auto_grow_enabled            = var.auto_grow_enabled
 
-  administrator_login          = var.administrator_login
-  administrator_login_password = var.administrator_password
-  version                      = var.mysql_version
-  ssl_enforcement_enabled      = var.force_ssl
+  administrator_login              = var.administrator_login
+  administrator_login_password     = var.administrator_password
+  version                          = var.mysql_version
+  ssl_enforcement_enabled          = var.force_ssl
+  ssl_minimal_tls_version_enforced = local.force_ssl_minimal_version
 
   public_network_access_enabled = var.public_network_access_enabled
 

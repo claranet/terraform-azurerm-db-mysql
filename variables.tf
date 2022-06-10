@@ -115,6 +115,16 @@ variable "force_ssl" {
   default     = true
 }
 
+variable "force_ssl_minimal_version" {
+  description = "The minimal SSL version enforced"
+  type        = string
+  default     = "TLS1_2"
+  validation {
+    condition     = contains(["TLSEnforcementDisabled", "TLS1_1", "TLS1_2"], var.force_ssl_minimal_version)
+    error_message = "Valid values for var: force_ssl_minimal_version are (TLSEnforcementDisabled, TLS1_1, TLS1_2)."
+  }
+}
+
 variable "databases" {
   description = "Map of databases with default collation and charset"
   type        = map(map(string))
