@@ -164,6 +164,7 @@ module "mysql" {
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Map of custom tags | `map(string)` | `{}` | no |
 | force\_ssl | Enforce SSL connection | `bool` | `true` | no |
+| force\_ssl\_minimal\_version | The minimal SSL version enforced | `string` | `"TLS1_2"` | no |
 | geo\_redundant\_backup\_enabled | Turn Geo-redundant server backups on/off. Not available for the Basic tier. | `bool` | `true` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
