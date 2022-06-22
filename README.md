@@ -118,7 +118,7 @@ module "mysql" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.23 |
+| azurerm | ~> 3.0 |
 | mysql.users\_mgmt | >=1.10.4 |
 | random | >= 2.0 |
 
