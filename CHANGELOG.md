@@ -3,6 +3,7 @@
 Breaking
   * AZ-717: Require Terraform 1.1+
   * AZ-717: Bump AzureRM provider version to `v3.0+`
+  * AZ-762: Externalize `mysql-users` as a separated module in a dedicated repo (to create admin users per database)
 
 # v5.3.0 - 2022-06-24
 

@@ -111,6 +111,24 @@ module "mysql" {
     foo = "bar"
   }
 }
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.mysql.mysql_fqdn)
+  username = format("%s@%s", var.administrator_login, module.mysql.mysql_server_name)
+  password = var.administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/mysql-users.git?ref=AZ-762_init_mysql_users"
+
+  for_each = toset(module.mysql.mysql_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
+}
 ```
 
 ## Providers
@@ -119,7 +137,6 @@ module "mysql" {
 |------|---------|
 | azurecaf | ~> 1.1 |
 | azurerm | ~> 3.0 |
-| mysql.users\_mgmt | >=1.10.4 |
 | random | >= 2.0 |
 
 ## Modules
@@ -139,9 +156,6 @@ module "mysql" {
 | [azurerm_mysql_firewall_rule.firewall_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_firewall_rule) | resource |
 | [azurerm_mysql_server.mysql_server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_server) | resource |
 | [azurerm_mysql_virtual_network_rule.vnet_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_virtual_network_rule) | resource |
-| [mysql_grant.roles](https://registry.terraform.io/providers/winebarrel/mysql/latest/docs/resources/grant) | resource |
-| [mysql_user.users](https://registry.terraform.io/providers/winebarrel/mysql/latest/docs/resources/user) | resource |
-| [random_password.db_passwords](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [random_password.mysql_administrator_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
@@ -156,7 +170,6 @@ module "mysql" {
 | backup\_retention\_days | Backup retention days for the server, supported values are between 7 and 35 days. | `number` | `10` | no |
 | capacity | Capacity for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#capacity | `number` | `4` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
-| create\_databases\_users | True to create a user named <db>(\_user) per database with generated password. | `bool` | `true` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_server\_name | Custom Server Name identifier | `string` | `""` | no |
 | databases | Map of databases with default collation and charset | `map(map(string))` | n/a | yes |
@@ -184,7 +197,6 @@ module "mysql" {
 | tier | Tier for MySQL server sku: https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html#tier<br>Possible values are: GeneralPurpose, Basic, MemoryOptimized. | `string` | `"GeneralPurpose"` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_server_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_caf\_naming\_for\_databases | Use the Azure CAF naming provider to generate databases name. | `bool` | `false` | no |
-| user\_suffix | Suffix to append to the created users | `string` | `"_user"` | no |
 
 ## Outputs
 
@@ -194,10 +206,7 @@ module "mysql" {
 | mysql\_administrator\_password | Administrator password for mysql server |
 | mysql\_database\_ids | The list of all database resource ids |
 | mysql\_databases | Map of databases infos |
-| mysql\_databases\_logins | Map of user login for each database |
 | mysql\_databases\_names | List of databases names |
-| mysql\_databases\_passwords | Map of user password for each database |
-| mysql\_databases\_users | Map of user name for each database |
 | mysql\_firewall\_rule\_ids | Map of MySQL created rules |
 | mysql\_fqdn | FQDN of the MySQL server |
 | mysql\_server\_id | MySQL server ID |
