@@ -203,6 +203,7 @@ module "mysql" {
 | mysql\_server\_id | MySQL server ID |
 | mysql\_server\_name | MySQL server name |
 | mysql\_vnet\_rules | The map of all vnet rules |
+| terraform\_module | Information about this Terraform module |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
