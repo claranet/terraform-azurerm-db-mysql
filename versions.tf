@@ -5,10 +5,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0"
     }
-    mysql = {
-      source  = "winebarrel/mysql"
-      version = ">=1.10.4"
-    }
     random = {
       source  = "hashicorp/random"
       version = ">= 2.0"

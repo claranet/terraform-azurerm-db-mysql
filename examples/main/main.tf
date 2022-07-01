@@ -5,6 +5,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 2.0.0"
     }
+    mysql = {
+      source  = "Paynetworx/mysql"
+      version = "~> 1.12"
+    }
   }
 }
 

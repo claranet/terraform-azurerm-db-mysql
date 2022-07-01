@@ -2,8 +2,6 @@ locals {
   administrator_login    = format("%s@%s", azurerm_mysql_server.mysql_server.administrator_login, azurerm_mysql_server.mysql_server.name)
   administrator_password = coalesce(var.administrator_password, random_password.mysql_administrator_password.result)
 
-  user_suffix = var.user_suffix != null ? var.user_suffix : ""
-
   tier_map = {
     "GeneralPurpose"  = "GP"
     "Basic"           = "B"

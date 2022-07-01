@@ -130,18 +130,6 @@ variable "databases" {
   type        = map(map(string))
 }
 
-variable "create_databases_users" {
-  description = "True to create a user named <db>(_user) per database with generated password."
-  type        = bool
-  default     = true
-}
-
-variable "user_suffix" {
-  description = "Suffix to append to the created users"
-  type        = string
-  default     = "_user"
-}
-
 variable "public_network_access_enabled" {
   type        = bool
   description = "Enable public network access for this server"

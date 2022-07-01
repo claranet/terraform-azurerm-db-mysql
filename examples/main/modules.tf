@@ -81,3 +81,22 @@ module "mysql" {
     foo = "bar"
   }
 }
+
+provider "mysql" {
+  endpoint = format("%s:3306", module.mysql.mysql_fqdn)
+  username = format("%s@%s", var.administrator_login, module.mysql.mysql_server_name)
+  password = var.administrator_password
+
+  tls = true
+}
+
+module "mysql_users" {
+  source  = "claranet/users/mysql"
+  version = "x.x.x"
+
+  for_each = toset(module.mysql.mysql_databases_names)
+
+  user_suffix_enabled = true
+  user                = each.key
+  database            = each.key
+}
