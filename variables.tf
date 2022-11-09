@@ -133,7 +133,7 @@ variable "databases" {
 variable "public_network_access_enabled" {
   type        = bool
   description = "Enable public network access for this server"
-  default     = true
+  default     = false
 }
 
 variable "threat_detection_policy" {
