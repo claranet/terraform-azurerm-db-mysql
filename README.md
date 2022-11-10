@@ -191,7 +191,7 @@ module "mysql_users" {
 | mysql\_version | Valid values are 5.6, 5.7 and 8.0 | `string` | `"5.7"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| public\_network\_access\_enabled | Enable public network access for this server | `bool` | `true` | no |
+| public\_network\_access\_enabled | Enable public network access for this server | `bool` | `false` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | stack | Project stack name | `string` | n/a | yes |
 | storage\_mb | Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 4194304 MB(4TB) for General Purpose/Memory Optimized SKUs. | `number` | `5120` | no |
