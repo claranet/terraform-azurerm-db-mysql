@@ -1,4 +1,4 @@
-resource "azurecaf_name" "mysql" {
+data "azurecaf_name" "mysql" {
   name          = var.stack
   resource_type = "azurerm_mysql_server"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
@@ -8,7 +8,7 @@ resource "azurecaf_name" "mysql" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "mysql_dbs" {
+data "azurecaf_name" "mysql_dbs" {
   for_each = var.databases
 
   name          = var.stack
