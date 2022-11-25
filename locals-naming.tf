@@ -3,5 +3,5 @@ locals {
   name_prefix = lower(var.name_prefix)
   name_suffix = lower(var.name_suffix)
 
-  mysql_server_name = coalesce(var.custom_server_name, azurecaf_name.mysql.result)
+  mysql_server_name = coalesce(var.custom_server_name, data.azurecaf_name.mysql.result)
 }

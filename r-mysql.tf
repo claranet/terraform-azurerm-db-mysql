@@ -40,7 +40,7 @@ resource "azurerm_mysql_database" "mysql_db" {
 
   charset             = lookup(each.value, "charset", "utf8")
   collation           = lookup(each.value, "collation", "utf8_general_ci")
-  name                = var.use_caf_naming_for_databases ? azurecaf_name.mysql_dbs[each.key].result : each.key
+  name                = var.use_caf_naming_for_databases ? data.azurecaf_name.mysql_dbs[each.key].result : each.key
   resource_group_name = var.resource_group_name
   server_name         = azurerm_mysql_server.mysql_server.name
 }
