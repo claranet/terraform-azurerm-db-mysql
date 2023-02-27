@@ -1,5 +1,8 @@
-# Azure Managed Mysql Service
+# DEPRECATED - Azure Managed Mysql Service
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/db-mysql/azurerm/)
+
+| ⚠ This module is deprecated, please use [db-mysql-flexible](https://registry.terraform.io/modules/claranet/db-mysql-flexible/azurerm/) module |
+|--|
 
 This Terraform module creates an [Azure MySQL server](https://www.terraform.io/docs/providers/azurerm/r/mysql_server.html)
 with [databases](https://www.terraform.io/docs/providers/azurerm/r/mysql_database.html)  and associated admin users along with logging activated and

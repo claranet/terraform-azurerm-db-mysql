@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-989: Add `pre-commit` and update CI
+
 # v6.2.0 - 2022-11-25
 
 Changed
@@ -6,7 +11,7 @@ Changed
 # v6.1.0 - 2022-11-10
 
 Changed
-  * AZ-901: Change default value for `public_network_access_enabled` variable to `false`  
+  * AZ-901: Change default value for `public_network_access_enabled` variable to `false`
 
 # v6.0.0 - 2022-07-01
 
@@ -141,4 +146,3 @@ Added
 
 Added
   * AZ-44 + TER-306: First release
-
